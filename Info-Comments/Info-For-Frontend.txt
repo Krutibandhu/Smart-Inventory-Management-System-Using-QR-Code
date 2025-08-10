@@ -1,0 +1,3 @@
+->Copy your frontend files
+->and paste it in the frontend folder.
+->please separate your files into a well defined structure.

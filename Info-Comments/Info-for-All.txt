@@ -1,0 +1,4 @@
+->please clone the repo inti your local device(git should be installed)
+->Remember to give a " PULL Request " every time you open a project.
+-> when committing project please add a suitable comment so we can understood what you did.
+->please add comments to your code,[no matter how small the code is] so we can read and understand it
