@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - QVentor</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Back Button Styling */
+        .back-btn {
+            background-color: #b08a57;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin: 15px 0;
+            display: inline-block;
+        }
+        .back-btn:hover {
+            background-color: #9a774a;
+        }
+        .form-section {
+            text-align: center;
+            margin-top: 100px;
+        }
+        .form-row {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo"><span class="q">Q</span>Ventor</div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="login.html" class="active">Admin Login</a>
+            <a href="#">Employee</a>
+            <a href="#">Our Services</a>
+            <a href="#">About</a>
+            <a href="#">Contact Us</a>
+        </nav>
+        <div class="menu-icon">&#9776;</div>
+    </header>
+
+    <!-- Login Form -->
+    <section class="form-section">
+        <button class="back-btn" onclick="window.location.href='admin.html'">⬅ Back to Admin Section</button>
+        <h1>Admin Login</h1>
+        <form action="dashboard.html" method="GET">
+            <div class="form-row single">
+                <input type="email" placeholder="Gmail" required />
+            </div>
+            <div class="form-row single">
+                <input type="password" placeholder="Password" required />
+            </div>
+            <button type="submit" class="submit-btn">LOGIN</button>
+        </form>
+    </section>
+
+    <script>
+        document.querySelector(".menu-icon").addEventListener("click", () => {
+            document.querySelector(".nav-links").classList.toggle("active");
+        });
+    </script>
+</body>
+</html>
