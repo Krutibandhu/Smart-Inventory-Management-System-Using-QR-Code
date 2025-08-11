@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "item")
@@ -23,10 +24,20 @@ public class Item {
     private String name;
     private String description;
     private double price;
+    private int quantity;
+    private double exportAmount;
+    private double importAmount;
+    private LocalDate recentExportDate;
+    private LocalDate recentImportDate;
 
-    public Item(String name, String description, double price) {
+    public Item(String name, String description, double price, int quantity, double exportAmount, double importAmount, LocalDate recentExportDate, LocalDate recentImportDate) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.quantity = quantity;
+        this.exportAmount = exportAmount;
+        this.importAmount = importAmount;
+        this.recentExportDate = recentExportDate;
+        this.recentImportDate = recentImportDate;
     }
 }
