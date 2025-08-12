@@ -1,10 +1,7 @@
 package com.code4cause.qventor.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,7 +27,13 @@ public class Item {
     private LocalDate recentExportDate;
     private LocalDate recentImportDate;
 
-    public Item(String name, String description, double price, int quantity, double exportAmount, double importAmount, LocalDate recentExportDate, LocalDate recentImportDate) {
+    // Link to the Admin who owns this item
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    @JsonIgnore
+    private Admin admin;
+
+    public Item(String name, String description, double price, int quantity, double exportAmount, double importAmount, LocalDate recentExportDate, LocalDate recentImportDate, Admin admin) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -39,5 +42,6 @@ public class Item {
         this.importAmount = importAmount;
         this.recentExportDate = recentExportDate;
         this.recentImportDate = recentImportDate;
+        this.admin = admin;
     }
 }
