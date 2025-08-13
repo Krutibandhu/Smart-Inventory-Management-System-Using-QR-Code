@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "item")
@@ -22,10 +23,6 @@ public class Item {
     private String description;
     private double price;
     private int quantity;
-    private double exportAmount;
-    private double importAmount;
-    private LocalDate recentExportDate;
-    private LocalDate recentImportDate;
 
     // Link to the Admin who owns this item
     @ManyToOne
@@ -33,15 +30,21 @@ public class Item {
     @JsonIgnore
     private Admin admin;
 
-    public Item(String name, String description, double price, int quantity, double exportAmount, double importAmount, LocalDate recentExportDate, LocalDate recentImportDate, Admin admin) {
+    // One item can have many import records
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ImportRecord> imports;
+
+    // One item can have many export records
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ExportRecord> exports;
+
+    public Item(String name, String description, double price, int quantity, Admin admin, List<ImportRecord> imports, List<ExportRecord> exports) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
-        this.exportAmount = exportAmount;
-        this.importAmount = importAmount;
-        this.recentExportDate = recentExportDate;
-        this.recentImportDate = recentImportDate;
         this.admin = admin;
+        this.imports = imports;
+        this.exports = exports;
     }
 }

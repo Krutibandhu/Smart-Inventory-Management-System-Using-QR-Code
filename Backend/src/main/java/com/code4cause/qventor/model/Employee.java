@@ -1,5 +1,6 @@
 package com.code4cause.qventor.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,8 @@ public class Employee {
 
     // Many employees can belong to one admin
     @ManyToOne
-    @JoinColumn(name = "admin_id") // foreign key in employee table
+    @JoinColumn(name = "admin_id")// foreign key in employee table
+    @JsonIgnore
     private Admin admin;
 
     public Employee(String fullName, String email, String phoneNumber, String companyName, String supabaseUserId, Admin admin) {

@@ -1,5 +1,7 @@
 package com.code4cause.qventor.controller;
 
+import com.code4cause.qventor.model.ExportRecord;
+import com.code4cause.qventor.model.ImportRecord;
 import com.code4cause.qventor.model.Item;
 import com.code4cause.qventor.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,12 @@ public class ItemController {
 
     // ✅ Add item to admin by supabaseUserId
     @PostMapping("/{supabaseUserId}")
-    public ResponseEntity<Item> addItemToAdmin(@PathVariable String supabaseUserId, @RequestBody Item item) {
-        return ResponseEntity.ok(itemService.addItemToAdmin(supabaseUserId, item));
+    public ResponseEntity<Item> addItemToAdmin(
+            @PathVariable String supabaseUserId,
+            @RequestBody Item item
+    ) {
+        Item savedItem = itemService.addItemToAdmin(supabaseUserId, item);
+        return ResponseEntity.ok(savedItem);
     }
 
     // ✅ Get all items of a specific admin
@@ -49,5 +55,53 @@ public class ItemController {
     public ResponseEntity<String> deleteItem(@PathVariable Long itemId) {
         itemService.deleteItem(itemId);
         return ResponseEntity.ok("Item deleted successfully");
+    }
+
+    // ✅ Create: add a new ImportRecord to an existing item
+    @PostMapping("/{itemId}/imports")
+    public ResponseEntity<ImportRecord> addImportToItem(
+            @PathVariable Long itemId,
+            @RequestBody ImportRecord importRecord
+    ) {
+        return ResponseEntity.ok(itemService.addImportToItem(itemId, importRecord));
+    }
+
+    // ✅ Create: add a new ExportRecord to an existing item
+    @PostMapping("/{itemId}/exports")
+    public ResponseEntity<ExportRecord> addExportToItem(
+            @PathVariable Long itemId,
+            @RequestBody ExportRecord exportRecord
+    ) {
+        return ResponseEntity.ok(itemService.addExportToItem(itemId, exportRecord));
+    }
+
+    // ✅ Get all import records for an item
+    @GetMapping("/{itemId}/imports")
+    public ResponseEntity<List<ImportRecord>> getImportRecords(@PathVariable Long itemId) {
+        return ResponseEntity.ok(itemService.getImportRecordsByItem(itemId));
+    }
+
+    // ✅ Get single import record
+    @GetMapping("/{itemId}/imports/{importId}")
+    public ResponseEntity<ImportRecord> getSingleImport(
+            @PathVariable Long itemId,
+            @PathVariable Long importId
+    ) {
+        return ResponseEntity.ok(itemService.getSingleImportRecord(itemId, importId));
+    }
+
+    // ✅ Get all export records for an item
+    @GetMapping("/{itemId}/exports")
+    public ResponseEntity<List<ExportRecord>> getExportRecords(@PathVariable Long itemId) {
+        return ResponseEntity.ok(itemService.getExportRecordsByItem(itemId));
+    }
+
+    // ✅ Get single export record
+    @GetMapping("/{itemId}/exports/{exportId}")
+    public ResponseEntity<ExportRecord> getSingleExport(
+            @PathVariable Long itemId,
+            @PathVariable Long exportId
+    ) {
+        return ResponseEntity.ok(itemService.getSingleExportRecord(itemId, exportId));
     }
 }
