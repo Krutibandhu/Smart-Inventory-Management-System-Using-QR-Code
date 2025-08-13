@@ -61,6 +61,7 @@ public class AdminService {
                 .orElseThrow(() -> new RuntimeException("Admin not found"));
     }
 
+    //Update Admin
     @Transactional
     public Admin updateAdmin(String supabaseUserId, Admin adminUpdates) {
         Admin admin = adminRepository.findBySupabaseUserId(supabaseUserId)
