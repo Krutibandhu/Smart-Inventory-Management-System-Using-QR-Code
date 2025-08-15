@@ -1,6 +1,7 @@
 package com.code4cause.qventor.service;
 
 import com.code4cause.qventor.model.*;
+import com.code4cause.qventor.myexception.ResourceNotFoundException;
 import com.code4cause.qventor.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class ItemService {
     // ✅ Add a new item linked to an admin and warehouse(s) using supabaseUserId
     public Item addItemToAdmin(String supabaseUserId, Item item) {
         Admin admin = adminRepository.findBySupabaseUserId(supabaseUserId)
-                .orElseThrow(() -> new RuntimeException("Admin not found with SupabaseUserId: " + supabaseUserId));
+                .orElseThrow(() -> new ResourceNotFoundException("Admin not found with SupabaseUserId: " + supabaseUserId));
 
         item.setAdmin(admin);
 
@@ -54,7 +55,7 @@ public class ItemService {
 
             for (Warehouse warehouse : item.getWarehouses()) {
                 Warehouse existingWarehouse = warehouseRepository.findByWarehouseName(warehouse.getWarehouseName())
-                        .orElseThrow(() -> new RuntimeException("Warehouse not found with name: " + warehouse.getWarehouseName()));
+                        .orElseThrow(() -> new ResourceNotFoundException("Warehouse not found with name: " + warehouse.getWarehouseName()));
 
                 // Add the item to warehouse's list (only if needed for bidirectional mapping)
                 existingWarehouse.getItems().add(item);
@@ -72,14 +73,14 @@ public class ItemService {
     // ✅ Get all items of a specific admin
     public List<Item> getItemsByAdmin(String supabaseUserId) {
         Admin admin = adminRepository.findBySupabaseUserId(supabaseUserId)
-                .orElseThrow(() -> new RuntimeException("Admin not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Admin not found"));
         return admin.getItems();
     }
 
     // ✅ Get a single item by ID
     public Item getItemById(Long itemId) {
         return itemRepository.findById(itemId)
-                .orElseThrow(() -> new RuntimeException("Item not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Item not found"));
     }
 
     @Transactional
@@ -97,7 +98,7 @@ public class ItemService {
     // ✅ Delete an item
     public void deleteItem(Long itemId) {
         if (!itemRepository.existsById(itemId)) {
-            throw new RuntimeException("Item not found");
+            throw new ResourceNotFoundException("Item not found");
         }
         itemRepository.deleteById(itemId);
     }
@@ -111,9 +112,9 @@ public class ItemService {
     // ✅ Get single import record
     public ImportRecord getSingleImportRecord(Long itemId, Long importId) {
         ImportRecord rec = importRecordRepository.findById(importId)
-                .orElseThrow(() -> new RuntimeException("Import record not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Import record not found"));
         if (!rec.getItem().getId().equals(itemId)) {
-            throw new RuntimeException("Import record does not belong to this item");
+            throw new ResourceNotFoundException("Import record does not belong to this item");
         }
         return rec;
     }
@@ -127,9 +128,9 @@ public class ItemService {
     // ✅ Get single export record
     public ExportRecord getSingleExportRecord(Long itemId, Long exportId) {
         ExportRecord rec = exportRecordRepository.findById(exportId)
-                .orElseThrow(() -> new RuntimeException("Export record not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Export record not found"));
         if (!rec.getItem().getId().equals(itemId)) {
-            throw new RuntimeException("Export record does not belong to this item");
+            throw new ResourceNotFoundException("Export record does not belong to this item");
         }
         return rec;
     }
@@ -158,7 +159,7 @@ public class ItemService {
         if (newExport.getQuantityShipped() > 0) {
             int newQty = item.getQuantity() - newExport.getQuantityShipped();
             if (newQty < 0) {
-                throw new RuntimeException("Not enough stock to ship");
+                throw new ResourceNotFoundException("Not enough stock to ship");
             }
             item.setQuantity(newQty);
             itemRepository.save(item);

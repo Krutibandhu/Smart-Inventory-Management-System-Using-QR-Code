@@ -3,6 +3,7 @@ package com.code4cause.qventor.service;
 import com.code4cause.qventor.model.Admin;
 import com.code4cause.qventor.model.Item;
 import com.code4cause.qventor.model.Warehouse;
+import com.code4cause.qventor.myexception.ResourceNotFoundException;
 import com.code4cause.qventor.repository.WarehouseRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class WarehouseService {
     //Update Warehouse info through warehouse id
     public Warehouse updateWarehouse(Long id, Warehouse warehouse) {
         Warehouse updateWarehouse = warehouseRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("No warehouse found")
+                () -> new ResourceNotFoundException("No warehouse found")
         );
 
         updateWarehouse.setWarehouseName(warehouse.getWarehouseName());
@@ -43,7 +44,7 @@ public class WarehouseService {
     @Transactional
     public Warehouse activateOrDeactivateWarehouse(String warehouseName) {
         Warehouse warehouse = warehouseRepository.findByWarehouseName(warehouseName).orElseThrow(
-                () -> new RuntimeException("Warehouse not found with this name")
+                () -> new ResourceNotFoundException("Warehouse not found with this name")
         );
 
         warehouse.setEnabled(!warehouse.isEnabled());
@@ -58,7 +59,7 @@ public class WarehouseService {
     @Transactional
     public Warehouse activateOrDeactivateWarehouse(Long id) {
         Warehouse warehouse = warehouseRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Warehouse not found with this name")
+                () -> new ResourceNotFoundException("Warehouse not found with this name")
         );
 
         warehouse.setEnabled(!warehouse.isEnabled());
@@ -69,7 +70,7 @@ public class WarehouseService {
     @Transactional
     public void deleteWarehouse(Long id) {
         Warehouse warehouse = warehouseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Warehouse not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Warehouse not found"));
 
         // Break relationships
         warehouse.getItems().forEach(item -> item.getWarehouses().remove(warehouse));
@@ -80,7 +81,7 @@ public class WarehouseService {
 
     public Set<Item> getItemsFromWarehouse(Long id) {
         Warehouse warehouse = warehouseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Warehouse not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Warehouse not found"));
         return warehouse.getItems();
     }
 

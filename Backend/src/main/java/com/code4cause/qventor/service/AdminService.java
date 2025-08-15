@@ -2,6 +2,8 @@ package com.code4cause.qventor.service;
 
 import com.code4cause.qventor.model.Admin;
 import com.code4cause.qventor.model.Warehouse;
+import com.code4cause.qventor.myexception.BadRequestException;
+import com.code4cause.qventor.myexception.ResourceNotFoundException;
 import com.code4cause.qventor.repository.AdminRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +26,12 @@ public class AdminService {
      */
     public Admin createAdmin(Admin admin) {
         if (admin.getSupabaseUserId() == null || admin.getSupabaseUserId().isBlank()) {
-            throw new IllegalArgumentException("supabaseUserId is required");
+            throw new BadRequestException("supabaseUserId is required");
         }
 
         boolean exists = adminRepository.findBySupabaseUserId(admin.getSupabaseUserId()).isPresent();
         if (exists) {
-            throw new RuntimeException("Admin with given Supabase ID already exists");
+            throw new ResourceNotFoundException("Admin with given Supabase ID already exists");
         }
         return adminRepository.save(admin);
     }
@@ -48,24 +50,24 @@ public class AdminService {
 
     /**
      * Get an admin by its primary key ID.
-     * Throws RuntimeException if not found.
+     * Throws ResourceNotFoundException() if not found.
      */
     public Admin getAdminById(Long id) {
         return adminRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Admin not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Admin not found"));
     }
 
     //Get an admin using their Supabase user ID.
     public Admin getAdminBySupabaseUserId(String id) {
         return adminRepository.findBySupabaseUserId(id)
-                .orElseThrow(() -> new RuntimeException("Admin not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Admin not found"));
     }
 
     //Update Admin
     @Transactional
     public Admin updateAdmin(String supabaseUserId, Admin adminUpdates) {
         Admin admin = adminRepository.findBySupabaseUserId(supabaseUserId)
-                .orElseThrow(() -> new RuntimeException("Admin not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Admin not found"));
 
         // Update allowed fields if provided (avoid changing supabaseUserId)
         if (adminUpdates.getFullName() != null) {
@@ -97,7 +99,7 @@ public class AdminService {
     @Transactional
     public void deleteAdmin(String supabaseUserId) {
         Admin admin = adminRepository.findBySupabaseUserId(supabaseUserId)
-                .orElseThrow(() -> new RuntimeException("Admin not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Admin not found"));
         adminRepository.delete(admin);
     }
 
@@ -109,7 +111,7 @@ public class AdminService {
     @Transactional
     public Admin addWarehouseToAdmin(String supabaseUserId, Warehouse newWarehouse) {
         Admin admin = adminRepository.findBySupabaseUserId(supabaseUserId)
-                .orElseThrow(() -> new RuntimeException("Admin not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Admin not found"));
 
         admin.getWarehouses().add(newWarehouse);
 

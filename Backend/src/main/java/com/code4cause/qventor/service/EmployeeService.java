@@ -2,6 +2,7 @@ package com.code4cause.qventor.service;
 
 import com.code4cause.qventor.model.Admin;
 import com.code4cause.qventor.model.Employee;
+import com.code4cause.qventor.myexception.ResourceNotFoundException;
 import com.code4cause.qventor.repository.AdminRepository;
 import com.code4cause.qventor.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class EmployeeService {
     public Employee addEmployeeToAdmin(String adminSupabaseUserId, Employee employee) {
         Optional<Admin> adminOpt = adminRepository.findBySupabaseUserId(adminSupabaseUserId);
         if (adminOpt.isEmpty()) {
-            throw new RuntimeException("Admin with Supabase ID " + adminSupabaseUserId + " not found");
+            throw new ResourceNotFoundException("Admin with Supabase ID " + adminSupabaseUserId + " not found");
         }
         Admin admin = adminOpt.get();
         employee.setAdmin(admin); // Link employee to admin
@@ -43,7 +44,7 @@ public class EmployeeService {
     public List<Employee> getEmployeesByAdmin(String adminSupabaseUserId) {
         Optional<Admin> adminOpt = adminRepository.findBySupabaseUserId(adminSupabaseUserId);
         if (adminOpt.isEmpty()) {
-            throw new RuntimeException("Admin with Supabase ID " + adminSupabaseUserId + " not found");
+            throw new ResourceNotFoundException("Admin with Supabase ID " + adminSupabaseUserId + " not found");
         }
         return adminOpt.get().getEmployees();
     }
@@ -53,7 +54,7 @@ public class EmployeeService {
      */
     public Employee getEmployeeById(Long employeeId) {
         return employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new RuntimeException("Employee with ID " + employeeId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Employee with ID " + employeeId + " not found"));
     }
 
     /**
@@ -61,7 +62,7 @@ public class EmployeeService {
      */
     public Employee getEmployeeBySupabaseUserId(String supabaseUserId) {
         return employeeRepository.findBySupabaseUserId(supabaseUserId)
-                .orElseThrow(() -> new RuntimeException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "Employee with Supabase User ID " + supabaseUserId + " not found"
                 ));
     }
@@ -92,7 +93,7 @@ public class EmployeeService {
     public void deleteEmployee(String supabaseEmployeeId) {
         Employee employee = getEmployeeBySupabaseUserId(supabaseEmployeeId);
         if (employee == null) {
-            throw new RuntimeException("Employee with ID " + supabaseEmployeeId + " not found");
+            throw new ResourceNotFoundException("Employee with ID " + supabaseEmployeeId + " not found");
         }
        employeeRepository.delete(employee);
     }
@@ -101,7 +102,7 @@ public class EmployeeService {
     public void deleteEmployee(Long id) {
         Employee employee = getEmployeeById(id);
         if (employee == null) {
-            throw new RuntimeException("Employee with ID " + id + " not found");
+            throw new ResourceNotFoundException("Employee with ID " + id + " not found");
         }
        employeeRepository.delete(employee);
     }
