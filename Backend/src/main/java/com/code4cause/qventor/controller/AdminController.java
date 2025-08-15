@@ -78,6 +78,12 @@ public class AdminController {
         return warehouseService.activateOrDeactivateWarehouse(warehouseId);
     }
 
+    @DeleteMapping("/warehouse/id/{warehouseId}")
+    public ResponseEntity<String> deleteWarehouse(@PathVariable long warehouseId){
+        warehouseService.deleteWarehouse(warehouseId);
+        return ResponseEntity.ok("Warehouse deleted successfully");
+    }
+
 
     // ✅ Delete admin
     @DeleteMapping("/{supabaseUserId}")

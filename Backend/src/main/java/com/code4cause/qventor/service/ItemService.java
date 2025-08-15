@@ -1,14 +1,14 @@
 package com.code4cause.qventor.service;
 
 import com.code4cause.qventor.model.*;
-import com.code4cause.qventor.repository.AdminRepository;
-import com.code4cause.qventor.repository.ExportRecordRepository;
-import com.code4cause.qventor.repository.ImportRecordRepository;
-import com.code4cause.qventor.repository.ItemRepository;
+import com.code4cause.qventor.repository.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ItemService {
@@ -16,19 +16,22 @@ public class ItemService {
     private final AdminRepository adminRepository;
     private final ImportRecordRepository importRecordRepository;
     private final ExportRecordRepository exportRecordRepository;
+    private final WarehouseRepository warehouseRepository;
 
     @Autowired
     public ItemService(ItemRepository itemRepository,
                        AdminRepository adminRepository,
                        ImportRecordRepository importRecordRepository,
-                       ExportRecordRepository exportRecordRepository) {
+                       ExportRecordRepository exportRecordRepository, WarehouseRepository warehouseRepository) {
         this.itemRepository = itemRepository;
         this.adminRepository = adminRepository;
         this.importRecordRepository = importRecordRepository;
         this.exportRecordRepository = exportRecordRepository;
+        this.warehouseRepository = warehouseRepository;
     }
 
-    // ✅ Add a new item linked to an admin using supabaseUserId
+    @Transactional
+    // ✅ Add a new item linked to an admin and warehouse(s) using supabaseUserId
     public Item addItemToAdmin(String supabaseUserId, Item item) {
         Admin admin = adminRepository.findBySupabaseUserId(supabaseUserId)
                 .orElseThrow(() -> new RuntimeException("Admin not found with SupabaseUserId: " + supabaseUserId));
@@ -45,8 +48,26 @@ public class ItemService {
             item.getExports().forEach(exportRecord -> exportRecord.setItem(item));
         }
 
+        // ✅ Link warehouses to this item
+        if (item.getWarehouses() != null && !item.getWarehouses().isEmpty()) {
+            Set<Warehouse> attachedWarehouses = new HashSet<>();
+
+            for (Warehouse warehouse : item.getWarehouses()) {
+                Warehouse existingWarehouse = warehouseRepository.findByWarehouseName(warehouse.getWarehouseName())
+                        .orElseThrow(() -> new RuntimeException("Warehouse not found with name: " + warehouse.getWarehouseName()));
+
+                // Add the item to warehouse's list (only if needed for bidirectional mapping)
+                existingWarehouse.getItems().add(item);
+
+                attachedWarehouses.add(existingWarehouse);
+            }
+
+            item.setWarehouses(attachedWarehouses);
+        }
+
         return itemRepository.save(item);
     }
+
 
     // ✅ Get all items of a specific admin
     public List<Item> getItemsByAdmin(String supabaseUserId) {
@@ -61,6 +82,7 @@ public class ItemService {
                 .orElseThrow(() -> new RuntimeException("Item not found"));
     }
 
+    @Transactional
     // ✅ Update an item
     public Item updateItem(Long itemId, Item updatedItem) {
         Item existingItem = getItemById(itemId);
@@ -71,6 +93,7 @@ public class ItemService {
         return itemRepository.save(existingItem);
     }
 
+    @Transactional
     // ✅ Delete an item
     public void deleteItem(Long itemId) {
         if (!itemRepository.existsById(itemId)) {
@@ -111,6 +134,7 @@ public class ItemService {
         return rec;
     }
 
+    @Transactional
     // ✅ CREATE: Add a new ImportRecord to an existing item
     public ImportRecord addImportToItem(Long itemId, ImportRecord newImport) {
         Item item = getItemById(itemId);
@@ -124,6 +148,7 @@ public class ItemService {
         return importRecordRepository.save(newImport);
     }
 
+    @Transactional
     // ✅ CREATE: Add a new ExportRecord to an existing item
     public ExportRecord addExportToItem(Long itemId, ExportRecord newExport) {
         Item item = getItemById(itemId);

@@ -4,11 +4,13 @@ import com.code4cause.qventor.model.ExportRecord;
 import com.code4cause.qventor.model.ImportRecord;
 import com.code4cause.qventor.model.Item;
 import com.code4cause.qventor.service.ItemService;
+import com.code4cause.qventor.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 
 @CrossOrigin(origins = "*")
@@ -16,10 +18,12 @@ import java.util.List;
 @RequestMapping("/api/items")
 public class ItemController {
     private final ItemService itemService;
+    private final WarehouseService warehouseService;
 
     @Autowired
-    public ItemController(ItemService itemService) {
+    public ItemController(ItemService itemService, WarehouseService warehouseService) {
         this.itemService = itemService;
+        this.warehouseService = warehouseService;
     }
 
     // ✅ Add item to admin by supabaseUserId
@@ -37,6 +41,13 @@ public class ItemController {
     public ResponseEntity<List<Item>> getItemsByAdmin(@PathVariable String supabaseUserId) {
         return ResponseEntity.ok(itemService.getItemsByAdmin(supabaseUserId));
     }
+
+    // ✅ Get all items of a specific admin
+    @GetMapping("/warehouse/{warehouseId}")
+    public ResponseEntity<Set<Item>> getItemsByWarehouse(@PathVariable Long warehouseId){
+        return ResponseEntity.ok(warehouseService.getItemsFromWarehouse(warehouseId));
+    }
+
 
     // ✅ Get single item by ID
     @GetMapping("/{itemId}")

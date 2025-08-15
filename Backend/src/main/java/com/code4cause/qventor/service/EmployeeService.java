@@ -6,6 +6,7 @@ import com.code4cause.qventor.repository.AdminRepository;
 import com.code4cause.qventor.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,7 @@ public class EmployeeService {
     /**
      * Add a new employee to an admin using admin's Supabase User ID
      */
+    @Transactional
     public Employee addEmployeeToAdmin(String adminSupabaseUserId, Employee employee) {
         Optional<Admin> adminOpt = adminRepository.findBySupabaseUserId(adminSupabaseUserId);
         if (adminOpt.isEmpty()) {
@@ -68,6 +70,7 @@ public class EmployeeService {
     /**
      * Update employee details
      */
+    @Transactional
     public Employee updateEmployee(String supabaseEmployeeId, Employee updatedEmployee) {
         Employee existingEmployee = getEmployeeBySupabaseUserId(supabaseEmployeeId);
 
@@ -76,6 +79,8 @@ public class EmployeeService {
         existingEmployee.setPhoneNumber(updatedEmployee.getPhoneNumber());
         existingEmployee.setCompanyName(updatedEmployee.getCompanyName());
         existingEmployee.setSupabaseUserId(updatedEmployee.getSupabaseUserId());
+        existingEmployee.setDepartment(updatedEmployee.getDepartment());
+        existingEmployee.setRole(updatedEmployee.getRole());
 
         return employeeRepository.save(existingEmployee);
     }
@@ -83,10 +88,20 @@ public class EmployeeService {
     /**
      * Delete employee by ID
      */
+    @Transactional
     public void deleteEmployee(String supabaseEmployeeId) {
         Employee employee = getEmployeeBySupabaseUserId(supabaseEmployeeId);
         if (employee == null) {
             throw new RuntimeException("Employee with ID " + supabaseEmployeeId + " not found");
+        }
+       employeeRepository.delete(employee);
+    }
+
+    @Transactional
+    public void deleteEmployee(Long id) {
+        Employee employee = getEmployeeById(id);
+        if (employee == null) {
+            throw new RuntimeException("Employee with ID " + id + " not found");
         }
        employeeRepository.delete(employee);
     }

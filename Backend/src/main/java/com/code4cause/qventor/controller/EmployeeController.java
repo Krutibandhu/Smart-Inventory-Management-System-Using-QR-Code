@@ -62,4 +62,11 @@ public class EmployeeController {
         employeeService.deleteEmployee(supabaseUserId);
         return ResponseEntity.ok("Employee deleted successfully");
     }
+
+    // ✅ Delete employee by normal ID
+    @DeleteMapping("/id/{employeeId}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable Long employeeId) {
+        employeeService.deleteEmployee(employeeId);
+        return ResponseEntity.ok("Employee deleted successfully");
+    }
 }

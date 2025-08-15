@@ -106,6 +106,7 @@ public class AdminService {
      * Finds the admin using Supabase user ID,
      * adds the warehouse to the list, and saves the admin.
      */
+    @Transactional
     public Admin addWarehouseToAdmin(String supabaseUserId, Warehouse newWarehouse) {
         Admin admin = adminRepository.findBySupabaseUserId(supabaseUserId)
                 .orElseThrow(() -> new RuntimeException("Admin not found"));

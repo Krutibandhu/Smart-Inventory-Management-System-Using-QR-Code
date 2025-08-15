@@ -17,6 +17,8 @@ public class Employee {
     private String email;
     private String phoneNumber;
     private String companyName;
+    private String department;
+    private String role;
     private String supabaseUserId;
 
     // Many employees can belong to one admin
@@ -25,11 +27,13 @@ public class Employee {
     @JsonIgnore
     private Admin admin;
 
-    public Employee(String fullName, String email, String phoneNumber, String companyName, String supabaseUserId, Admin admin) {
+    public Employee(String fullName, String email, String phoneNumber, String companyName, String department, String role, String supabaseUserId, Admin admin) {
         this.fullName = fullName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.companyName = companyName;
+        this.department = department;
+        this.role = role;
         this.supabaseUserId = supabaseUserId;
         this.admin = admin;
     }

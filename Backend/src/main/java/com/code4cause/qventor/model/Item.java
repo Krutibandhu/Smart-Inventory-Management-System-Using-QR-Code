@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "item")
@@ -37,6 +39,16 @@ public class Item {
     // One item can have many export records
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExportRecord> exports;
+
+    // Connection to warehouse
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "warehouse_items",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "warehouse_id")
+    )
+    private Set<Warehouse> warehouses = new HashSet<>();
+
 
     public Item(String name, String description, double price, int quantity, Admin admin, List<ImportRecord> imports, List<ExportRecord> exports) {
         this.name = name;
