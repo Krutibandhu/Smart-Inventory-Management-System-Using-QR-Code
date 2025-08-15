@@ -3,6 +3,7 @@ package com.code4cause.qventor.controller;
 import com.code4cause.qventor.model.Admin;
 import com.code4cause.qventor.model.Warehouse;
 import com.code4cause.qventor.service.AdminService;
+import com.code4cause.qventor.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,12 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
+    public final WarehouseService warehouseService;
 
     @Autowired
-    public AdminController(AdminService adminService) {
+    public AdminController(AdminService adminService,WarehouseService warehouseService) {
         this.adminService = adminService;
+        this.warehouseService =warehouseService;
     }
 
     // ✅ Create new admin
@@ -52,6 +55,27 @@ public class AdminController {
             @RequestBody Warehouse warehouse
     ) {
         return adminService.addWarehouseToAdmin(supabaseUserId, warehouse);
+    }
+
+    // ✅ update Warehouse info through warehouse id
+    @PutMapping("/warehouse/{warehouseId}")
+    public Warehouse updateWarehouse(
+            @PathVariable Long warehouseId,
+            @RequestBody Warehouse warehouse
+    ){
+        return warehouseService.updateWarehouse(warehouseId,warehouse);
+    }
+
+    // ✅ update Warehouse activate or Inactive status through warehouse name
+    @PutMapping("/warehouse/status/{warehouseName}")
+    public Warehouse updateActiveInactiveOfWarehouse( @PathVariable String warehouseName){
+        return warehouseService.activateOrDeactivateWarehouse(warehouseName);
+    }
+
+    // ✅ update Warehouse activate or Inactive status through warehouse id
+    @PutMapping("/warehouse/status/id/{warehouseId}")
+    public Warehouse updateActiveInactiveOfWarehouse( @PathVariable Long warehouseId){
+        return warehouseService.activateOrDeactivateWarehouse(warehouseId);
     }
 
 

@@ -14,9 +14,11 @@ public class Warehouse {
 
     private String warehouseName;
     private String location;
+    private boolean enabled;
 
-    public Warehouse(String warehouseName, String location) {
+    public Warehouse(String warehouseName, String location, boolean enabled) {
         this.warehouseName = warehouseName;
         this.location = location;
+        this.enabled = enabled;
     }
 }
