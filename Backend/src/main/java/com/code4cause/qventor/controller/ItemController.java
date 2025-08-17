@@ -36,6 +36,13 @@ public class ItemController {
         return ResponseEntity.ok(savedItem);
     }
 
+    // ✅ Search endpoint
+    @GetMapping("/search")
+    public ResponseEntity<List<Item>> searchItems(@RequestParam("q") String query) {
+        List<Item> items = itemService.searchItems(query);
+        return ResponseEntity.ok(items);
+    }
+
     // ✅ Get all items of a specific admin
     @GetMapping("/admin/{supabaseUserId}")
     public ResponseEntity<List<Item>> getItemsByAdmin(@PathVariable String supabaseUserId) {

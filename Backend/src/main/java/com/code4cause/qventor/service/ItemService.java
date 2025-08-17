@@ -83,6 +83,11 @@ public class ItemService {
                 .orElseThrow(() -> new ResourceNotFoundException("Item not found"));
     }
 
+    // ✅ Search items by name
+    public List<Item> searchItems(String keyword) {
+        return itemRepository.findByNameContainingIgnoreCase(keyword);
+    }
+
     @Transactional
     // ✅ Update an item
     public Item updateItem(Long itemId, Item updatedItem) {
