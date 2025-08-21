@@ -1,6 +1,8 @@
 package com.code4cause.qventor.controller;
 
 import com.code4cause.qventor.model.Admin;
+import com.code4cause.qventor.model.ExportRecord;
+import com.code4cause.qventor.model.ImportRecord;
 import com.code4cause.qventor.model.Warehouse;
 import com.code4cause.qventor.service.AdminService;
 import com.code4cause.qventor.service.WarehouseService;
@@ -40,6 +42,18 @@ public class AdminController {
     @GetMapping("/{supabaseUserId}")
     public ResponseEntity<Admin> getAdminBySupabaseUserId(@PathVariable String supabaseUserId) {
         return ResponseEntity.ok(adminService.getAdminBySupabaseUserId(supabaseUserId));
+    }
+
+    // ✅ Get all imports for an admin
+    @GetMapping("/{supabaseUserId}/imports")
+    public ResponseEntity<List<ImportRecord>> getAllImports(@PathVariable String supabaseUserId) {
+        return ResponseEntity.ok(adminService.getAllImportsByAdmin(supabaseUserId));
+    }
+
+    // ✅ Get all exports for an admin
+    @GetMapping("/{supabaseUserId}/exports")
+    public ResponseEntity<List<ExportRecord>> getAllExports(@PathVariable String supabaseUserId) {
+        return ResponseEntity.ok(adminService.getAllExportsByAdmin(supabaseUserId));
     }
 
     // ✅ Update admin

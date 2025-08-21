@@ -1,6 +1,8 @@
 package com.code4cause.qventor.service;
 
 import com.code4cause.qventor.model.Admin;
+import com.code4cause.qventor.model.ExportRecord;
+import com.code4cause.qventor.model.ImportRecord;
 import com.code4cause.qventor.model.Warehouse;
 import com.code4cause.qventor.myexception.BadRequestException;
 import com.code4cause.qventor.myexception.ResourceNotFoundException;
@@ -9,6 +11,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -116,5 +119,25 @@ public class AdminService {
         admin.getWarehouses().add(newWarehouse);
 
         return adminRepository.save(admin);
+    }
+
+    // ✅ Get all imports for an admin
+    public List<ImportRecord> getAllImportsByAdmin(String supabaseUserId) {
+        Admin admin = adminRepository.findBySupabaseUserId(supabaseUserId)
+                .orElseThrow(() -> new ResourceNotFoundException("Admin not found with SupabaseUserId: " + supabaseUserId));
+
+        List<ImportRecord> imports = new ArrayList<>();
+        admin.getItems().forEach(item -> imports.addAll(item.getImports()));
+        return imports;
+    }
+
+    // ✅ Get all exports for an admin
+    public List<ExportRecord> getAllExportsByAdmin(String supabaseUserId) {
+        Admin admin = adminRepository.findBySupabaseUserId(supabaseUserId)
+                .orElseThrow(() -> new ResourceNotFoundException("Admin not found with SupabaseUserId: " + supabaseUserId));
+
+        List<ExportRecord> exports = new ArrayList<>();
+        admin.getItems().forEach(item -> exports.addAll(item.getExports()));
+        return exports;
     }
 }
