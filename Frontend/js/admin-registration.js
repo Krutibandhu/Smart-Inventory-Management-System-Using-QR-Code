@@ -36,7 +36,6 @@
 //     console.log("Role:", roleValue);
 // })
 
-
 import { supabase } from "./supabase-client.js";
 
 // get the form element
@@ -51,9 +50,13 @@ registrationForm.addEventListener("submit", async (e) => {
   const email = document.querySelector("#admin-email").value;
   const phoneNumber = document.querySelector("#admin-phone").value;
   const password = document.querySelector("#admin-password").value;
-  const confirmPassword = document.querySelector("#admin-confirmpassword").value;
+  const confirmPassword = document.querySelector(
+    "#admin-confirmpassword"
+  ).value;
   const companyName = document.querySelector("#admin-companyname").value;
-  const warehouseName = document.querySelector("#admin-whname").value || "Default Warehouse";
+  const location = document.querySelector("#admin-whadress").value;
+  const warehouseName =
+    document.querySelector("#admin-whname").value || "Default Warehouse";
 
   // check if both passwords match
   if (password !== confirmPassword) {
@@ -66,7 +69,7 @@ registrationForm.addEventListener("submit", async (e) => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { full_name: fullName, role: "admin" } }
+      options: { data: { full_name: fullName, role: "admin" } },
     });
 
     if (error) throw error;
@@ -81,22 +84,20 @@ registrationForm.addEventListener("submit", async (e) => {
       phoneNumber,
       companyName,
       supabaseUserId, // link Supabase auth with backend data
-      warehouses: [
-        { warehouseName, location: "Cuttack" }
-      ]
+      warehouses: [{ warehouseName,  location, enabled:true}],
     };
 
     // 3. call backend API to save this admin
     const res = await fetch("http://localhost:8080/api/admins", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(adminPayload)
+      body: JSON.stringify(adminPayload),
     });
 
     if (!res.ok) throw new Error("Backend save failed");
 
     // 4. on success, good to go for login page
-    window.location.href = "/login.html";
+    window.location.href = "/html/login.html";
   } catch (err) {
     console.error(err.message);
     alert("Error: " + err.message);

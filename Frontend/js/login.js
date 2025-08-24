@@ -18,7 +18,7 @@ loginForm.addEventListener("submit", async (e) => {
 
     // redirect based on role
     if (role === "admin") {
-      window.location.href = "/admin-dashboard.html";
+      window.location.href = "/html/dashboard.html";
     } else {
       window.location.href = "/employee-dashboard.html";
     }
