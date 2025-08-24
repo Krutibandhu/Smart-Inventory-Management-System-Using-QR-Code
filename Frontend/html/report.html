@@ -102,16 +102,16 @@ body {
 <header class="navbar">
   <div class="logo"><span class="q">Q</span>Ventor</div>
   <nav class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="admin.html">Admin</a>
-    <a href="employee.html" class="active">Employee</a>
-    <a href="our-service.html">Our Services</a>
-    <a href="About.html">About</a>
-    <a href="contact-us.html">Contact Us</a>
+    <a href="/html/index.html">Home</a>
+    <a href="/html/admin.html">Admin</a>
+    <a href="/html/employee-login.html" class="active">Employee</a>
+    <a href="/html/our-service.html">Our Services</a>
+    <a href="/html/About.html">About</a>
+    <a href="/html/contact-us.html">Contact Us</a>
   </nav>
 </header>
 
-<button class="back-btn" onclick="window.location.href='employee-dashboard.html'">⬅ Back to Dashboard</button>
+<button class="back-btn" onclick="window.location.href='/html/employee-dashboard.html'">⬅ Back to Dashboard</button>
 <h1 style="text-align:center; margin-top:10px;">Product Report</h1>
 
 <div class="report-cards">
@@ -131,7 +131,7 @@ body {
   document.getElementById('totalProducts').textContent = totalProducts;
   document.getElementById('totalSold').textContent = totalSold;
   document.getElementById('pendingOrders').textContent = pendingOrders;
-  document.getElementById('totalRevenue').textContent = "$" + totalRevenue;
+  document.getElementById('totalRevenue').textContent = "Rs" + totalRevenue;
 
   // GSAP animations
   // Navbar slides down

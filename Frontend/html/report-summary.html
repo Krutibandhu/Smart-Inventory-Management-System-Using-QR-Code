@@ -88,12 +88,12 @@
   <header class="navbar">
     <div class="logo"><span class="q">Q</span>Ventor</div>
     <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="admin.html" class="active">Admin</a>
-      <a href="employee-login.html">Employee</a>
-      <a href="our-service.html">Our Services</a>
-      <a href="About.html">About</a>
-      <a href="contact-us.html">Contact Us</a>
+      <a href="/html/index.html">Home</a>
+      <a href="/html/admin.html" class="active">Admin</a>
+      <a href="/html/employee-login.html">Employee</a>
+      <a href="/html/our-service.html">Our Services</a>
+      <a href="/html/About.html">About</a>
+      <a href="/html/contact-us.html">Contact Us</a>
     </nav>
     <div class="menu-icon">&#9776;</div>
   </header>
@@ -109,7 +109,7 @@
     <p id="year"></p>
     <p id="customer"></p>
     <p id="product"></p>
-    <a href="audit-report.html" class="back-btn">⬅ Go Back</a>
+    <a href="/html/audit-report.html" class="back-btn">⬅ Go Back</a>
   </div>
 
   <script>
@@ -117,8 +117,8 @@
 
     function setValue(id, label, value) {
       document.getElementById(id).textContent = value 
-        ? `${label}: ${value}` 
-        : `${label}: -`;
+        ? `Rs{label}: Rs{value}` 
+        : `Rs{label}: -`;
     }
 
     setValue("cost", "Unit Cost Price", urlParams.get("cost"));

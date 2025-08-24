@@ -176,32 +176,32 @@ body {
 <header class="navbar">
   <div class="logo"><span class="q">Q</span>Ventor</div>
   <nav class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="admin.html">Admin</a>
-    <a href="employee.html" class="active">Employee</a>
-    <a href="our-service.html">Our Services</a>
-    <a href="About.html">About</a>
-    <a href="contact-us.html">Contact Us</a>
+    <a href="/html/index.html">Home</a>
+    <a href="/html/admin.html">Admin</a>
+    <a href="/html/employee-login.html" class="active">Employee</a>
+    <a href="/html/our-service.html">Our Services</a>
+    <a href="/html/About.html">About</a>
+    <a href="/html/contact-us.html">Contact Us</a>
   </nav>
 </header>
 
 <div class="dashboard">
   <div class="sidebar" id="sidebarMenu">
-    <img id="Employee" src="adminimg.png" alt="Employee Photo" />
+    <img id="Employee" src="/assets/adminimg.png" alt="Employee Photo" />
     <h3 id="EmployeeDisplayName">Employee Name</h3>
-    <a href="employee-profile.html">Profile</a>
-    <a href="employee-update.html">Update Details</a>
-    <a href="order-history.html">Order-history</a>
-    <a href="product-details.html">Product-details</a>
+    <a href="/html/employee-profile.html">Profile</a>
+    <a href="/html/employee-update.html">Update Details</a>
+    <a href="/html/order-history.html">Order-history</a>
+    <a href="/html/product-details.html">Product-details</a>
     <hr />
-    <a href="emp-settings.html">Settings</a>
-    <a href="emp-audit.html">Audit Report</a>
-    <a href="complaint-file.html">Complaint-file</a>
-    <a href="emp-distributor.html">Distributor Details</a>
+    <a href="/html/emp-settings.html">Settings</a>
+    <a href="/html/emp-audit.html">Audit Report</a>
+    <a href="/html/complaint-file.html">Complaint-file</a>
+    <a href="/html/emp-distributor.html">Distributor Details</a>
   </div>
 
   <div class="main">
-    <button class="back-btn" onclick="window.location.href='employee-login.html'">⬅ Back to Login</button>
+    <button class="back-btn" onclick="window.location.href='/html/employee-login.html'">⬅ Back to Login</button>
     <h1>Employee Dashboard</h1>
 
     <div class="status-cards" id="dashboardCards">
@@ -212,17 +212,17 @@ body {
     </div>
 
     <div class="action-section">
-      <div class="icon-box" onclick="window.location.href='scanner.html'">
+      <div class="icon-box" onclick="window.location.href='/html/scanner.html'">
         <div class="scan-box"><span>SCAN</span></div>
         <p>Scanner</p>
       </div>
 
-      <div class="icon-box" onclick="window.location.href='add-product.html'">
-        <img src="Add product.png" alt="Add Product"/>
+      <div class="icon-box" onclick="window.location.href='/html/add-product.html'">
+        <img src="/assets/Add product.png" alt="Add Product"/>
         <p>Add Product</p>
       </div>
-      <div class="icon-box" onclick="window.location.href='report.html'">
-        <img src="Report.png" alt="Report"/>
+      <div class="icon-box" onclick="window.location.href='/html/report.html'">
+        <img src="/assets/Report.png" alt="Report"/>
         <p>Report</p>
       </div>
     </div>
@@ -233,7 +233,7 @@ body {
 document.addEventListener("DOMContentLoaded", () => {
   // Sidebar info
   const name = localStorage.getItem('adminName') || 'Admin Name';
-  const photo = localStorage.getItem('adminPhoto') || 'adminimg.png';
+  const photo = localStorage.getItem('adminPhoto') || '/assets/adminimg.png';
   document.getElementById('EmployeeDisplayName').textContent = name;
   document.getElementById('Employee').src = photo;
 
