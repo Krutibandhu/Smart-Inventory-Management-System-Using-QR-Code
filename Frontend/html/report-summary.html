@@ -88,7 +88,7 @@
   <header class="navbar">
     <div class="logo"><span class="q">Q</span>Ventor</div>
     <nav class="nav-links">
-      <a href="/html/index.html">Home</a>
+      <a href="index.html">Home</a>
       <a href="/html/admin.html" class="active">Admin</a>
       <a href="/html/employee-login.html">Employee</a>
       <a href="/html/our-service.html">Our Services</a>
@@ -117,8 +117,8 @@
 
     function setValue(id, label, value) {
       document.getElementById(id).textContent = value 
-        ? `Rs{label}: Rs{value}` 
-        : `Rs{label}: -`;
+        ? `${label}: ${value}` 
+        : `${label}: -`;
     }
 
     setValue("cost", "Unit Cost Price", urlParams.get("cost"));
