@@ -23,6 +23,12 @@ public class WarehouseService {
         this.warehouseRepository = warehouseRepository;
     }
 
+//    get warehouse by id
+    public Warehouse getWarehouseById(Long id) {
+        return warehouseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Warehouse not found with id: " + id));
+    }
+
     @Transactional
     //Update Warehouse info through warehouse id
     public Warehouse updateWarehouse(Long id, Warehouse warehouse) {

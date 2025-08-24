@@ -71,6 +71,13 @@ public class AdminController {
         return adminService.addWarehouseToAdmin(supabaseUserId, warehouse);
     }
 
+    // ✅ Get single warehouse by ID
+    @GetMapping("/warehouse/{warehouseId}")
+    public ResponseEntity<Warehouse> getWarehouseById(@PathVariable Long warehouseId) {
+        Warehouse warehouse = warehouseService.getWarehouseById(warehouseId);
+        return ResponseEntity.ok(warehouse);
+    }
+
     // ✅ update Warehouse info through warehouse id
     @PutMapping("/warehouse/{warehouseId}")
     public Warehouse updateWarehouse(

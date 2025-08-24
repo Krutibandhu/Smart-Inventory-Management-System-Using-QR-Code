@@ -4,61 +4,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QVentor - Employee Registration</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/css/style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <style>
+    body {
+      background-color: #11224d;
+      font-family: 'Open Sans', sans-serif;
+    }
     .navbar {
       position: sticky;
       top: 0;
       background-color: #11224d;
       z-index: 999;
+      padding: 1rem;
     }
     .nav-links a {
-      position: relative;
       color: white;
+      margin: 0 10px;
       text-decoration: none;
-      padding: 8px 12px;
-      transition: color 0.3s ease;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0%;
-      height: 2px;
-      background: var(--gold);
-      transition: width 0.3s ease-in-out;
+      transition: color 0.3s;
     }
     .nav-links a:hover {
       color: var(--gold);
     }
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-    .nav-links a.active {
-      color: var(--gold);
-      font-weight: bold;
-    }
-    .nav-links a.active::after {
-      width: 100%;
-    }
-    body {
-      background-color: #11224d;
-    }
     .form-section {
       max-width: 900px;
-      margin: 3rem auto 5rem;
+      margin: 3rem auto;
       background-color: #11224d;
-      padding: 2rem 2.5rem;
+      padding: 2rem;
       border-radius: 10px;
       box-shadow: 0 8px 15px rgba(0,0,0,0.445);
-      color: var(--white);
-      font-family: 'Open Sans', sans-serif;
+      color: white;
     }
     .form-section h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2rem;
+      font-size: 2rem;
       color: var(--gold);
       text-align: center;
       margin-bottom: 2rem;
@@ -69,7 +48,7 @@
       margin-bottom: 20px;
       flex-wrap: wrap;
     }
-    .form-row input, select {
+    .form-row input, .form-row select {
       flex: 1;
       padding: 0.9rem 1rem;
       font-size: 1rem;
@@ -81,33 +60,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 20px;
     }
-    .submit-btn {
+    .submit-btn, .back-btn {
       background-color: var(--gold);
-      color: var(--dark-blue);
       border: none;
-      padding: 0.9rem 2.5rem;
-      font-weight: 700;
-      font-size: 1.1rem;
+      padding: 0.9rem 2rem;
+      font-weight: bold;
       border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: 0.3s;
     }
-    .submit-btn:hover {
+    .submit-btn:hover, .back-btn:hover {
       background-color: #c49b5a;
     }
-    .back-btn {
-      background: var(--gold);
-      color: white;
-      border: none;
-      padding: 0.9rem 2.5rem;
-      font-weight: 700;
-      font-size: 1.1rem;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    /* Popup Modal */
+    /* Popup */
     .popup {
       position: fixed;
       top: 0; left: 0;
@@ -116,7 +82,6 @@
       display: none;
       justify-content: center;
       align-items: center;
-      z-index: 1000;
     }
     .popup-content {
       background: #fff;
@@ -124,17 +89,14 @@
       border-radius: 10px;
       text-align: center;
       color: #11224d;
-      font-size: 1.2rem;
-      font-weight: bold;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
     }
     .popup-content button {
-      margin-top: 15px;
-      padding: 8px 18px;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
       border: none;
-      border-radius: 6px;
       background: #11224d;
       color: white;
+      border-radius: 6px;
       cursor: pointer;
     }
   </style>
@@ -145,94 +107,59 @@
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="admin.html">Admin</a>
-      <a href="employee.html">Employee</a>
-      <a href="our-service.html">Our Services</a>
-      <a href="About.html">About</a>
-      <a href="contact-us.html">Contact Us</a>
+      <a href="employee.html" class="active">Employee</a>
     </nav>
-    <div class="menu-icon">&#9776;</div>
   </header>
 
   <section class="form-section">
     <h1>Employee Registration</h1>
-    <form id="employeeForm">
+    <form id="employee-registration-form">
       <div class="form-row">
-        <input type="text" name="fullname" placeholder="Full Name" required />
-        <input type="email" name="email" placeholder="Email" required />
-        <input type="tel" name="phone" placeholder="Phone No." required />
+        <input type="text" id="employee-fullname" placeholder="Full Name" required />
+        <input type="email" id="employee-email" placeholder="Email" required />
+        <input type="tel" id="employee-phone" placeholder="Phone No." required />
       </div>
       <div class="form-row">
-        <input type="text" name="employeeID" placeholder="Employee ID" required />
-        <select name="department" required>
+        <input type="text" id="employee-companyname" placeholder="Company Name" required />
+        <select id="employee-department" required>
           <option value="" disabled selected>Select Department</option>
           <option value="Sector 1">Sector 1</option>
           <option value="Sector 2">Sector 2</option>
           <option value="Sector 3">Sector 3</option>
         </select>
-        <select name="role" required>
-          <option value="" disabled selected>Select Category</option>
+        <select id="employee-role" required>
+          <option value="" disabled selected>Select Role</option>
           <option value="Category A">Category A</option>
           <option value="Category B">Category B</option>
           <option value="Category C">Category C</option>
         </select>
       </div>
       <div class="form-row">
-        <input type="password" name="password" placeholder="Password" required />
-        <input type="password" name="confirm_password" placeholder="Confirm Password" required />
+        <input type="password" id="employee-password" placeholder="Password" required />
+        <input type="password" id="employee-confirmpassword" placeholder="Confirm Password" required />
       </div>
-
-      <!-- Buttons side by side -->
       <div class="form-actions">
         <button type="button" class="back-btn" onclick="window.location.href='access-details.html'">⬅ Back</button>
-        <button type="submit" class="submit-btn">SUBMIT</button>
+        <button type="submit" class="submit-btn">Register</button>
       </div>
     </form>
   </section>
 
-  <!-- Popup -->
   <div class="popup" id="popup">
     <div class="popup-content">
-      ✅ Employee has been registered successfully!
+      ✅ Employee registered successfully!
       <br />
       <button onclick="closePopup()">OK</button>
     </div>
   </div>
 
   <script>
-    // GSAP Animations
-    gsap.from(".navbar", { y: -100, opacity: 0, duration: 1, ease: "power3.out" });
-    gsap.from(".form-section", { opacity: 0, y: 50, duration: 1, ease: "power2.out", delay: 0.5 });
-    gsap.from(".form-row input, .form-row select", { opacity: 0, y: 20, duration: 0.6, ease: "power2.out", stagger: 0.15, delay: 1 });
-    gsap.from(".submit-btn", { scale: 0.8, opacity: 0, duration: 0.5, delay: 1.5, ease: "back.out(1.7)" });
-
-  document.getElementById("employeeForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    // Collect form data
-    const employee = {
-      fullname: this.fullname.value,
-      email: this.email.value,
-      phone: this.phone.value,
-      employeeID: this.employeeID.value,
-      department: this.department.value,
-      role: this.role.value,
-      password: this.password.value,
-      status: "Active"
-    };
-
-    // Save to localStorage
-    let employees = JSON.parse(localStorage.getItem("employees")) || [];
-    employees.push(employee);
-    localStorage.setItem("employees", JSON.stringify(employees));
-
-    // Show popup
-    document.getElementById("popup").style.display = "flex"; 
-    this.reset(); 
-  });
-
-  function closePopup() {
-    document.getElementById("popup").style.display = "none";
-  }
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
   </script>
+  <script type="module" src="/js/config.js"></script>
+  <script type="module" src="/js/supabase-client.js"></script>
+  <script type="module" src="/js/employee-registration.js"></script>
 </body>
 </html>
