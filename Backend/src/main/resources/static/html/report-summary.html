@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Summary - QVentor</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    :root {
+      --dark-blue: #0a1a3d;
+      --gold: #d4af7a;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--dark-blue);
+      color: var(--white);
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: var(--dark-blue);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .logo .q { color: var(--gold); }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 12px;
+      font-size: 1.2em;
+    }
+
+    h1 {
+      margin: 30px 0 20px;
+      color: var(--gold);
+      font-size: 28px;
+    }
+
+    .summary-box {
+      background: var(--dark-blue);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      width: 450px;
+      margin: 20px auto 60px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.452);
+      text-align: left;
+    }
+
+    .summary-box p {
+      font-size: 16px;
+      margin: 10px 0;
+    }
+
+    .back-btn {
+      display: block;
+      margin-top: 20px;
+      padding: 12px;
+      background: var(--gold);
+      color: var(--dark-blue);
+      font-weight: bold;
+      border-radius: 6px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .back-btn:hover { background: #b8935f; }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo"><span class="q">Q</span>Ventor</div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/html/admin.html" class="active">Admin</a>
+      <a href="/html/employee-login.html">Employee</a>
+      <a href="/html/our-service.html">Our Services</a>
+      <a href="/html/About.html">About</a>
+      <a href="/html/contact-us.html">Contact Us</a>
+    </nav>
+    <div class="menu-icon">&#9776;</div>
+  </header>
+
+  <h1>Report Summary</h1>
+  <div class="summary-box">
+    <p id="cost"></p>
+    <p id="quantity"></p>
+    <p id="sale"></p>
+    <p id="total"></p>
+    <p id="revenue"></p>
+    <p id="month"></p>
+    <p id="year"></p>
+    <p id="customer"></p>
+    <p id="product"></p>
+    <a href="/html/audit-report.html" class="back-btn">⬅ Go Back</a>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+
+    function setValue(id, label, value) {
+      document.getElementById(id).textContent = value 
+        ? `${label}: ${value}` 
+        : `${label}: -`;
+    }
+
+    setValue("cost", "Unit Cost Price", urlParams.get("cost"));
+    setValue("quantity", "Order Quantity", urlParams.get("quantity"));
+    setValue("sale", "Unit Sale Price", urlParams.get("sale"));
+    setValue("total", "Total Cost", urlParams.get("total"));
+    setValue("revenue", "Revenue", urlParams.get("revenue"));
+    setValue("month", "Order Month", urlParams.get("month"));
+    setValue("year", "Year", urlParams.get("year"));
+    setValue("customer", "Customer Type", urlParams.get("customer"));
+    setValue("product", "Product", urlParams.get("product"));
+  </script>
+</body>
+</html>

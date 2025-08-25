@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual Entry - QVentor</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+  <style>
+    :root {
+      --dark-blue: #0a1a3d;
+      --gold: #d4af7a;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--dark-blue);
+      color: var(--white);
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--dark-blue);
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 2.6rem;
+      font-weight: bold;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .logo .q {
+      color: var(--gold);
+    }
+
+    .nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      padding: 8px 12px;
+      font-size: 1.2em;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width .3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-links a.active {
+      color: var(--gold);
+      font-weight: bold;
+    }
+
+    /* Form card */
+    .container {
+      max-width: 700px;
+      margin: 30px auto;
+      background: var(--dark-blue);
+      color: var(--white);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .6);
+      border: 1px solid var(--gold);
+    }
+
+    h1 {
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 6px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      background: #102040;
+      color: var(--white);
+    }
+
+    .btn {
+      background: var(--gold);
+      border: none;
+      padding: 12px 25px;
+      margin: 10px 6px 0 0;
+      color: var(--dark-blue);
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #b08a57;
+    }
+
+    /* Table */
+    .table-container {
+      max-width: 900px;
+      margin: 30px auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--dark-blue);
+      color: var(--white);
+    }
+
+    th,
+    td {
+      border: 1px solid var(--gold);
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background: #13254b;
+      color: var(--gold);
+      font-size: 1.05em;
+    }
+
+    .empty-row td {
+      color: #c9c9c9;
+      font-style: italic;
+    }
+
+    /* QR Popup */
+    .qr-popup {
+      display: none;
+      /* hidden by default */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin-left: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      align-items: center;
+      /* flex works only when shown */
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .qr-box {
+      background: var(--dark-blue);
+      border: 2px solid var(--gold);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .qr-box h2 {
+      color: var(--gold);
+    }
+
+#qrcode {
+  margin: 20px auto;
+}
+#qrcode canvas,
+#qrcode img {
+  display: block;
+  margin: 0 auto;
+}
+
+    .close-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: var(--gold);
+      color: var(--dark-blue);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      background: #b08a57;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="logo"><span class="q">Q</span>Ventor</div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/html/admin.html">Admin</a>
+      <a href="/html/employee-login.html" class="active">Employee</a>
+      <a href="/html/our-service.html">Our Services</a>
+      <a href="/html/About.html">About</a>
+      <a href="/html/contact-us.html">Contact Us</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>✍ Manual Product Entry</h1>
+    <form id="manualForm" autocomplete="off">
+      <label for="manual-name">Product Name</label>
+      <input type="text" id="manual-name" required />
+
+      <label for="manual-desc">Description</label>
+      <textarea id="manual-desc" rows="3" required></textarea>
+
+      <label for="manual-qty">Quantity</label>
+      <input type="number" id="manual-qty" min="0" required />
+
+      <label for="manual-price">Price</label>
+      <input type="text" id="manual-price" required />
+
+      <label for="manual-warehouse">Warehouse Name</label>
+      <input type="text" id="manual-warehouse" required />
+
+      <label for="manual-import">Import Details</label>
+      <textarea id="manual-import" rows="3" required></textarea>
+
+      <button type="button" class="btn" id="manualAddBtn">➕ Add Product</button>
+      <button type="button" class="btn" id="clearTableBtn">🗑 Clear Table</button>
+      <button type="button" class="btn" onclick="window.location.href='/html/add-product.html'">⬅ Back</button>
+    </form>
+  </div>
+
+  <div class="table-container">
+    <table id="productTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Qty</th>
+          <th>Price</th>
+          <th>Warehouse</th>
+          <th>Import Details</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- QR Popup -->
+  <div class="qr-popup" id="qrPopup">
+    <div class="qr-box">
+      <h2>📦 Product QR Code</h2>
+      <div id="qrcode"></div>
+      <button class="close-btn" onclick="document.getElementById('qrPopup').style.display='none'">Close</button>
+      <button class="close-btn" id="downloadQR">⬇ Download QR</button>
+    </div>
+  </div>
+
+  <script>
+    let qrDiv; // make it global
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('manualForm');
+      const addBtn = document.getElementById('manualAddBtn');
+      const clearBtn = document.getElementById('clearTableBtn');
+      const tbody = document.querySelector('#productTable tbody');
+      const qrPopup = document.getElementById('qrPopup');
+      qrDiv = document.getElementById('qrcode'); // assign here
+
+      let products = [];
+      try {
+        products = JSON.parse(localStorage.getItem('qventor_products') || '[]');
+      } catch { products = []; }
+      function renderTable() {
+        if (!products.length) {
+          tbody.innerHTML = `
+      <tr class="empty-row">
+        <td colspan="6">No products added yet.</td>
+      </tr>
+    `;
+          return;
+        }
+        tbody.innerHTML = products.map(p => `
+    <tr>
+      <td>${escapeHtml(p.name)}</td>
+      <td>${escapeHtml(p.desc)}</td>
+      <td>${escapeHtml(p.qty)}</td>
+      <td>${escapeHtml(p.price)}</td>
+      <td>${escapeHtml(p.warehouse)}</td>
+      <td>${escapeHtml(p.importDetails)}</td>
+    </tr>
+  `).join('');
+      }
+      function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, s => (
+          { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s]
+        ));
+      }
+
+      addBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('manual-name').value.trim();
+        const desc = document.getElementById('manual-desc').value.trim();
+        const qty = document.getElementById('manual-qty').value.trim();
+        const price = document.getElementById('manual-price').value.trim();
+        const warehouse = document.getElementById('manual-warehouse').value.trim();
+        const importDetails = document.getElementById('manual-import').value.trim();
+
+        if (!(name && desc && qty && price && warehouse && importDetails)) {
+          alert('⚠ Please fill all fields!');
+          return;
+        }
+
+        const product = { name, desc, qty, price, warehouse, importDetails };
+        products.push(product);
+        localStorage.setItem('qventor_products', JSON.stringify(products));
+        renderTable();
+        form.reset();
+        alert('✅ Product Added!');
+
+        // Build URL dynamically using the current host
+        const query = new URLSearchParams(product).toString();
+        const qrUrl = window.location.origin + "/html/qr-view.html?" + query;
+        // Show QR popup
+        qrDiv.innerHTML = "";
+        new QRCode(qrDiv, {
+          text: qrUrl,
+          width: 200,
+          height: 200,
+          colorDark: "#ffffff",
+          colorLight: "#0a1a3d"
+        });
+        qrPopup.style.display = "flex";
+      });
+
+      clearBtn.addEventListener('click', () => {
+        if (!products.length) return;
+        if (confirm('Are you sure you want to clear the table?')) {
+          products = [];
+          localStorage.removeItem('qventor_products');
+          renderTable();
+        }
+      });
+
+      renderTable();
+    });
+
+    // ✅ Fix: Now works
+    document.getElementById('downloadQR').addEventListener('click', () => {
+      const canvas = qrDiv.querySelector('canvas') || qrDiv.querySelector('img');
+      if (!canvas) {
+        alert("QR not generated yet!");
+        return;
+      }
+
+      let dataURL;
+      if (canvas.tagName.toLowerCase() === 'canvas') {
+        dataURL = canvas.toDataURL("image/png");
+      } else {
+        dataURL = canvas.src;
+      }
+
+      const link = document.createElement("a");
+      link.href = dataURL;
+      link.download = "product-qr.png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  </script>
+
+</body>
+
+</html>

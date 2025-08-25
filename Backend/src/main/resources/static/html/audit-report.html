@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audit Report - QVentor</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <style>
+      :root {
+        --dark-blue: #0a1a3d;
+        --gold: #d4af7a;
+        --white: #ffffff;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: var(--dark-blue);
+        color: var(--white);
+        text-align: center;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background-color: var(--dark-blue);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo {
+        font-size: 2rem;
+        font-weight: bold;
+        font-family: "Playfair Display", serif;
+      }
+
+      .logo .q {
+        color: var(--gold);
+      }
+
+      .nav-links a {
+        position: relative;
+        color: white;
+        text-decoration: none;
+        padding: 8px 12px;
+        transition: color 0.3s ease;
+        font-size: 1.2em;
+      }
+
+      h1 {
+        margin: 30px 0 20px;
+        color: var(--gold);
+        font-size: 28px;
+      }
+
+      .report-box {
+        background: var(--dark-blue);
+        padding: 30px;
+        border-radius: 12px;
+        width: 420px;
+        margin: 20px auto 60px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.411);
+        text-align: left;
+      }
+
+      .report-box label {
+        font-weight: bold;
+        color: white;
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .report-box input,
+      .report-box select {
+        width: 100%;
+        background-color: #0a1a3d;
+        color: white;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 15px;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background: var(--gold);
+        border: none;
+        color: var(--dark-blue);
+        font-weight: bold;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #b8935f;
+      }
+
+      .back-btn {
+        margin-top: -80%;
+        background-color: #d4af7a;
+        padding: 10px 25px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        width: 10%;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="logo"><span class="q">Q</span>Ventor</div>
+      <nav class="nav-links">
+        <a href="/index.html">Home</a>
+        <a href="/html/admin.html" class="active">Admin</a>
+        <a href="/html/employee-login.html">Employee</a>
+        <a href="/html/our-service.html">Our Services</a>
+        <a href="/html/About.html">About</a>
+        <a href="/html/contact-us.html">Contact Us</a>
+      </nav>
+      <div class="menu-icon">&#9776;</div>
+    </header>
+
+    <h1>Enter Report Details</h1>
+    <div class="report-box">
+      <form id="reportForm">
+        <label>Enter Unit Cost Price:</label>
+        <input type="number" name="cost" required />
+
+        <label>Enter Order Quantity:</label>
+        <input type="number" name="quantity" required />
+
+        <label>Enter Unit Sale Price:</label>
+        <input type="number" name="sale" required />
+
+        <label>Enter Total Cost:</label>
+        <input type="number" name="total" required />
+
+        <label>Enter Revenue:</label>
+        <input type="number" name="revenue" required />
+
+        <label>Enter Order Month (1-12):</label>
+        <input type="number" name="month" min="1" max="12" required />
+
+        <label for="year">Select Year:</label>
+        <select id="year" name="year" required>
+          <option value="">select</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+          <option value="2026">2026</option>
+          <option value="2027">2027</option>
+        </select>
+
+        <label for="customerType">Select Customer Type:</label>
+        <select id="customerType" name="customer" required>
+          <option value="">select</option>
+          <option value="Export">1. Export</option>
+          <option value="Distributor">2. Distributor</option>
+          <option value="Wholesale">3. Wholesale</option>
+        </select>
+
+        <label for="productName">Select Product Name:</label>
+        <select id="productName" name="product" required>
+          <option value="">select</option>
+          <option value="Air Fryer">1. Air Fryer</option>
+          <option value="Iron">2. Iron</option>
+          <option value="Laptop">3. Laptop</option>
+          <option value="Oven">4. Oven</option>
+          <option value="Smartphone">5. Smartphone</option>
+          <option value="Tab">6. Tab</option>
+          <option value="TV">7. TV</option>
+        </select>
+
+        <button type="submit" class="submit-btn">SUBMIT</button>
+      </form>
+    </div>
+
+    <button class="back-btn" onclick="window.location.href='/html/dashboard.html'">
+      <-- BACK
+    </button>
+    <script>
+      document
+        .getElementById("reportForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const cost = document.querySelector("input[name='cost']").value;
+          const quantity = document.querySelector(
+            "input[name='quantity']"
+          ).value;
+          const sale = document.querySelector("input[name='sale']").value;
+          const total = document.querySelector("input[name='total']").value;
+          const revenue = document.querySelector("input[name='revenue']").value;
+          const month = document.querySelector("input[name='month']").value;
+          const year = document.getElementById("year").value;
+          const customer = document.getElementById("customerType").value;
+          const product = document.getElementById("productName").value;
+
+          window.location.href = `report-summary.html?cost=${encodeURIComponent(
+            cost
+          )}&quantity=${encodeURIComponent(quantity)}&sale=${encodeURIComponent(
+            sale
+          )}&total=${encodeURIComponent(total)}&revenue=${encodeURIComponent(
+            revenue
+          )}&month=${encodeURIComponent(month)}&year=${encodeURIComponent(
+            year
+          )}&customer=${encodeURIComponent(
+            customer
+          )}&product=${encodeURIComponent(product)}`;
+        });
+    </script>
+  </body>
+</html>

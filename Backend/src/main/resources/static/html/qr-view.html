@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR View - QVentor</title>
+    <style>
+      :root {
+        --dark-blue: #0a1a3d;
+        --gold: #d4af7a;
+        --white: #ffffff;
+      }
+      body {
+        font-family: "Open Sans", sans-serif;
+        margin: 0;
+        padding: 40px;
+        background: var(--dark-blue);
+        color: var(--white);
+        text-align: center;
+      }
+      .card {
+        background: var(--dark-blue);
+        padding: 30px;
+        border-radius: 12px;
+        max-width: 600px;
+        margin: auto;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+        border: 1px solid var(--gold);
+      }
+      h2 {
+        color: var(--gold);
+      }
+      .details p {
+        margin: 10px 0;
+        font-size: 1.1em;
+      }
+      .back-btn {
+        margin-top: 20px;
+        background: var(--gold);
+        color: var(--dark-blue);
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .back-btn:hover {
+        background: #b08a57;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2>📦 Product Details</h2>
+      <div class="details" id="details"></div>
+       <button class="back-btn" onclick="window.location.href='/html/scanner.html'">⬅ Back</button>
+    </div>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const product = {
+        name: params.get("name"),
+        desc: params.get("desc"),
+        qty: params.get("qty"),
+        price: params.get("price"),
+        warehouse: params.get("warehouse"),
+        importDetails: params.get("importDetails"),
+      };
+
+      document.getElementById("details").innerHTML = `
+    <p><b>Name:</b> ${product.name || "-"}</p>
+    <p><b>Description:</b> ${product.desc || "-"}</p>
+    <p><b>Quantity:</b> ${product.qty || "-"}</p>
+    <p><b>Price:</b> ${product.price || "-"}</p>
+    <p><b>Warehouse:</b> ${product.warehouse || "-"}</p>
+    <p><b>Import Details:</b> ${product.importDetails || "-"}</p>
+  `;
+    </script>
+  </body>
+</html>
