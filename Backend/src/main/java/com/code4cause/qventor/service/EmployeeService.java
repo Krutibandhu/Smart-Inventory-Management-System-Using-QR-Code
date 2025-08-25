@@ -76,10 +76,8 @@ public class EmployeeService {
         Employee existingEmployee = getEmployeeBySupabaseUserId(supabaseEmployeeId);
 
         existingEmployee.setFullName(updatedEmployee.getFullName());
-        existingEmployee.setEmail(updatedEmployee.getEmail());
         existingEmployee.setPhoneNumber(updatedEmployee.getPhoneNumber());
         existingEmployee.setCompanyName(updatedEmployee.getCompanyName());
-        existingEmployee.setSupabaseUserId(updatedEmployee.getSupabaseUserId());
         existingEmployee.setDepartment(updatedEmployee.getDepartment());
         existingEmployee.setRole(updatedEmployee.getRole());
 

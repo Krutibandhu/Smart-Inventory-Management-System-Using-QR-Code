@@ -44,8 +44,11 @@ public class IssueService {
 
 
     // ✅ Admin can view all issues
-    public List<Issue> getIssuesByAdmin(Long adminId) {
-        return issueRepository.findByAdminId(adminId);
+    public List<Issue> getIssuesByAdmin(String adminSupabaseId) {
+        Admin admin = adminRepository.findBySupabaseUserId(adminSupabaseId).orElseThrow(
+                ()-> new ResourceNotFoundException("Admin not found with thing id"));
+
+        return issueRepository.findByAdminId(admin.getId());
     }
 
     // ✅ Employee can view their own issues

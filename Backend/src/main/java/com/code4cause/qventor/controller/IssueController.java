@@ -29,7 +29,7 @@ public class IssueController {
 
     // 🟢 Admin views all issues
     @GetMapping("/admin/{adminId}")
-    public ResponseEntity<List<Issue>> getIssuesByAdminById(@PathVariable Long adminId) {
+    public ResponseEntity<List<Issue>> getIssuesByAdminById(@PathVariable String adminId) {
         return ResponseEntity.ok(issueService.getIssuesByAdmin(adminId));
     }
 

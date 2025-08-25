@@ -93,8 +93,9 @@
       .alert {
         background-color: #9fa8a3;
       }
-      .po {
+      .items {
         background-color: #5e5e5e;
+        cursor: pointer;
       }
       .active {
         background-color: #85735d;
@@ -231,7 +232,7 @@
         <a href="/html/settings.html">Settings</a>
         <a href="/html/audit-report.html">Audit Report</a>
         <a href="/html/issue-report.html">Issue Report</a>
-        <a href="/html/distributor-details.html">Distributor Details</a>
+        <a href="/html/import-export-details.html">Import/Export Details</a>
       </div>
 
       <div class="main">
@@ -245,25 +246,34 @@
             <h2></h2>
             <p>NO. OF WH</p>
           </div>
+          <div
+            class="stat-box items"
+            onclick="window.location.href='/html/all-items.html'"
+          >
+            <h2 id="totalItems">0</h2>
+            <p>ITEMS</p>
+          </div>
+
           <div class="stat-box alert">
-            <h2>45</h2>
+            <h2 id="alertCount">0</h2>
             <p>ALERT</p>
           </div>
-          <div class="stat-box po">
-            <h2>230</h2>
-            <p>PO</p>
-          </div>
+
           <div class="stat-box active">
-            <h2></h2>
+            <h2>0</h2>
             <p>ACTIVE</p>
           </div>
           <div class="stat-box inactive">
-            <h2></h2>
+            <h2>0</h2>
             <p>INACTIVE</p>
           </div>
         </div>
 
-        <canvas id="salesChart" width="500" height="150"></canvas>
+        <!-- ✅ Charts Section -->
+        <div style="margin-top: 40px">
+          <h2 style="color: #d4af7a">📊 Imports & Exports Overview</h2>
+          <canvas id="importExportChart" width="700" height="300"></canvas>
+        </div>
       </div>
     </div>
 
@@ -273,12 +283,6 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const name = localStorage.getItem("adminName") || "Admin Name";
-        const photo = localStorage.getItem("adminPhoto") || "adminimg.png";
-
-        document.getElementById("adminDisplayName").textContent = name;
-        document.getElementById("adminImage").src = photo;
-
         // GSAP Animations
         gsap.from(".sidebar", { x: -200, opacity: 0, duration: 1 });
         gsap.from(".stat-box", {
@@ -287,51 +291,6 @@
           duration: 1,
           stagger: 0.2,
         });
-        gsap.from("#salesChart", { scale: 0.8, opacity: 0, duration: 1 });
-      });
-
-      // Chart.js
-      const ctx = document.getElementById("salesChart").getContext("2d");
-      new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"],
-          datasets: [
-            {
-              label: "Series 1",
-              data: [10, 30, 20, 40, 35],
-              borderColor: "#b08a57",
-              borderWidth: 2,
-              fill: false,
-            },
-            {
-              label: "Series 2",
-              data: [15, 25, 35, 20, 45],
-              borderColor: "#9fa8a3",
-              borderWidth: 2,
-              fill: false,
-            },
-            {
-              label: "Series 3",
-              data: [5, 20, 30, 25, 50],
-              borderColor: "#5e5e5e",
-              borderWidth: 2,
-              fill: false,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              labels: { color: "#fff" },
-            },
-          },
-          scales: {
-            x: { ticks: { color: "#fff" } },
-            y: { ticks: { color: "#fff" } },
-          },
-        },
       });
     </script>
     <script type="module" src="/js/config.js"></script>

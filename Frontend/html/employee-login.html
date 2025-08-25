@@ -192,14 +192,19 @@
     <!-- Login Section -->
     <section class="form-section">
       <h1>Employee Login</h1>
-      <form action="/html/employee-dashboard.html" method="GET">
+      <form id="employee-login-form">
         <div class="form-row">
-          <input type="email" name="email" placeholder="Email" required />
+          <input
+            type="email"
+            id="employee-email"
+            placeholder="Email"
+            required
+          />
         </div>
         <div class="form-row">
           <input
             type="password"
-            name="password"
+            id="employee-password"
             placeholder="Password"
             required
           />
@@ -268,5 +273,6 @@
     </script>
     <script type="module" src="/js/config.js"></script>
     <script type="module" src="/js/supabase-client.js"></script>
+    <script type="module" src="/js/employee-login.js"></script>
   </body>
 </html>
