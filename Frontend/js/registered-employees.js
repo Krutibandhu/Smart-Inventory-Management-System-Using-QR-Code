@@ -10,7 +10,7 @@ async function getCurrentUser() {
   } = await supabase.auth.getUser();
   if (error || !user) {
     alert("⚠ Please log in as Admin first.");
-    window.location.href = "/login.html";
+    window.location.href = "/html/login.html";
     return null;
   }
   return user;
