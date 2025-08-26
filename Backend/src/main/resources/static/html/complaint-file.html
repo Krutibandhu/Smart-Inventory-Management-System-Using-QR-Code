@@ -19,8 +19,6 @@
         color: #fff;
         text-align: center;
       }
-
-      /* Navbar */
       .navbar {
         position: fixed;
         top: 0;
@@ -49,30 +47,9 @@
         transition: color 0.3s ease;
         font-size: 1.2em;
       }
-      .nav-links a::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 0%;
-        height: 2px;
-        background: var(--gold);
-        transition: width 0.3s ease-in-out;
-      }
       .nav-links a:hover {
         color: var(--gold);
       }
-      .nav-links a:hover::after {
-        width: 100%;
-      }
-      .nav-links a.active {
-        color: var(--gold);
-        font-weight: bold;
-      }
-      .nav-links a.active::after {
-        width: 100%;
-      }
-
       h1 {
         margin-top: 30px;
         font-size: 2rem;
@@ -84,8 +61,6 @@
         color: var(--gold);
         font-size: 1rem;
       }
-
-      /* Form */
       .form-container {
         max-width: 700px;
         margin: auto;
@@ -101,8 +76,7 @@
         text-align: left;
       }
       input,
-      textarea,
-      select {
+      textarea {
         width: 100%;
         padding: 12px;
         border-radius: 8px;
@@ -113,23 +87,6 @@
       textarea {
         resize: vertical;
         min-height: 100px;
-      }
-      .upload-box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 2px dashed #fff;
-        border-radius: 12px;
-        padding: 20px;
-        cursor: pointer;
-        background: var(--dark-blue);
-        margin: 20px 0;
-      }
-      .upload-box:hover {
-        background: #152a5e;
-      }
-      .upload-box img {
-        margin-right: 10px;
       }
       .buttons {
         display: flex;
@@ -151,21 +108,6 @@
         background: #d4af7a;
         color: #fff;
       }
-      #preview {
-        margin-top: 10px;
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      #preview img {
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-        border-radius: 6px;
-      }
-
-      /* Popup Modal */
       .modal {
         display: none;
         position: fixed;
@@ -191,45 +133,6 @@
       .modal-content h2 {
         color: var(--gold);
       }
-      .modal button {
-        margin-top: 15px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        background: var(--gold);
-        color: #0a1a3d;
-        font-weight: bold;
-      }
-      .modal button:hover {
-        background: #d4af7a;
-        color: #fff;
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        .navbar {
-          flex-direction: column;
-          gap: 10px;
-          padding: 1rem;
-        }
-        .nav-links {
-          justify-content: center;
-          flex-wrap: wrap;
-        }
-        h1 {
-          font-size: 1.6rem;
-        }
-        .form-container {
-          padding: 15px;
-        }
-        .btn {
-          width: 100%;
-        }
-        .buttons {
-          flex-direction: column;
-        }
-      }
     </style>
   </head>
   <body>
@@ -253,48 +156,10 @@
     <div class="form-container">
       <form id="complaintForm">
         <label for="title">Title</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          placeholder="Enter complaint title"
-          required
-        />
-
-        <label for="category">Category</label>
-        <input
-          type="text"
-          id="category"
-          name="category"
-          placeholder="Enter category"
-          required
-        />
+        <input type="text" id="title" name="title" required />
 
         <label for="description">Description</label>
-        <textarea
-          id="description"
-          name="description"
-          placeholder="Describe your complaint..."
-          required
-        ></textarea>
-
-        <label for="images">Upload Images</label>
-        <div
-          class="upload-box"
-          onclick="document.getElementById('images').click()"
-        >
-          <img src="https://img.icons8.com/ios-glyphs/30/ffffff/image.png" />
-          <span>Click to Upload</span>
-        </div>
-        <input
-          type="file"
-          id="images"
-          name="images"
-          accept="image/*"
-          multiple
-          hidden
-        />
-        <div id="preview"></div>
+        <textarea id="description" name="description" required></textarea>
 
         <div class="buttons">
           <button type="submit" class="btn">SUBMIT</button>
@@ -313,117 +178,14 @@
     <div id="idModal" class="modal">
       <div class="modal-content">
         <h2>Complaint Submitted!</h2>
-        <p>Your Employee ID: <strong id="empID"></strong></p>
         <p>Your Complaint ID: <strong id="compID"></strong></p>
-        <button onclick="checkStatus()">Check Status</button>
         <button onclick="closeModal()">Close</button>
       </div>
     </div>
 
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const form = document.getElementById("complaintForm");
-        const imageInput = document.getElementById("images");
-        const preview = document.getElementById("preview");
-        let uploadedImages = [];
-
-        // Preview uploaded images
-        imageInput.addEventListener("change", function () {
-          preview.innerHTML = "";
-          uploadedImages = [];
-          Array.from(this.files).forEach((file) => {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-              const img = document.createElement("img");
-              img.src = e.target.result;
-              preview.appendChild(img);
-              uploadedImages.push(e.target.result);
-            };
-            reader.readAsDataURL(file);
-          });
-        });
-
-        // Handle form submit
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          const empID = "EMP" + Math.floor(1000 + Math.random() * 9000);
-          let complaints = JSON.parse(localStorage.getItem("complaints")) || [];
-          const compID =
-            "C" + (complaints.length + 1).toString().padStart(3, "0");
-
-          const complaint = {
-            empID: empID,
-            compID: compID,
-            title: document.getElementById("title").value,
-            category: document.getElementById("category").value,
-            description: document.getElementById("description").value,
-            images: uploadedImages,
-            date: new Date().toLocaleString(),
-            status: "Pending",
-          };
-
-          complaints.push(complaint);
-          localStorage.setItem("complaints", JSON.stringify(complaints));
-
-          document.getElementById("empID").textContent = empID;
-          document.getElementById("compID").textContent = compID;
-          document.getElementById("idModal").style.display = "block";
-
-          form.reset();
-          preview.innerHTML = "";
-          uploadedImages = [];
-
-          // Animate modal
-          gsap.fromTo(
-            ".modal-content",
-            { scale: 0.6, opacity: 0 },
-            { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)" }
-          );
-        });
-
-        // GSAP Animations
-        gsap.from(".logo", {
-          opacity: 0,
-          y: -30,
-          duration: 1,
-          ease: "power2.out",
-        });
-        gsap.from(".nav-links a", {
-          opacity: 0,
-          y: -20,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: "back.out(1.7)",
-        });
-        gsap.from(".title", { opacity: 0, y: -20, duration: 1, delay: 0.5 });
-        gsap.from(".subtitle", { opacity: 0, y: -10, duration: 1, delay: 0.8 });
-        gsap.from(".form-container", {
-          opacity: 0,
-          y: 30,
-          duration: 1,
-          delay: 1,
-          ease: "power2.out",
-        });
-      });
-
-      // Modal functions
-      function closeModal() {
-        document.getElementById("idModal").style.display = "none";
-      }
-      function checkStatus() {
-        const compID = document.getElementById("compID").textContent;
-        const complaints = JSON.parse(localStorage.getItem("complaints")) || [];
-        const found = complaints.find((c) => c.compID === compID);
-        if (found) {
-          alert(`Complaint ${compID} is currently: ${found.status}`);
-        } else {
-          alert("Complaint not found.");
-        }
-      }
-    </script>
+    <!-- JS -->
+     <script type="module" src="/js/config.js"></script>
+     <script type="module" src="/js/supabase-client.js"></script>
+    <script type="module" src="/js/complain-file.js"></script>
   </body>
 </html>

@@ -34,9 +34,9 @@ public class IssueController {
     }
 
     // 🟢 Employee views their issues
-    @GetMapping("/employee/{employeeId}")
-    public ResponseEntity<List<Issue>> getIssuesByEmployee(@PathVariable Long employeeId) {
-        return ResponseEntity.ok(issueService.getIssuesByEmployee(employeeId));
+    @GetMapping("/employee/{employeeSupabaseId}")
+    public ResponseEntity<List<Issue>> getIssuesByEmployee(@PathVariable String employeeSupabaseId) {
+        return ResponseEntity.ok(issueService.getIssuesByEmployee(employeeSupabaseId));
     }
 
     // 🟢 Admin updates issue status

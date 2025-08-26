@@ -27,7 +27,7 @@ public class ItemController {
     }
 
     // ✅ Add item to admin by supabaseUserId
-    @PostMapping("/{supabaseUserId}")
+    @PostMapping("/save/{supabaseUserId}")
     public ResponseEntity<Item> addItemToAdmin(
             @PathVariable String supabaseUserId,
             @RequestBody Item item

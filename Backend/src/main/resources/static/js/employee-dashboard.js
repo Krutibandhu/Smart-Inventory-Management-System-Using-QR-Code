@@ -41,9 +41,7 @@ async function loadEmployeeData() {
 
   const supabaseUserId = user.id;
   try {
-    const res = await fetch(
-      `/api/employees/supabase/${supabaseUserId}`
-    );
+    const res = await fetch(`/api/employees/supabase/${supabaseUserId}`);
     if (!res.ok) throw new Error("Failed to fetch employee data");
     const employee = await res.json();
     console.log("Employee data:", employee);
@@ -55,8 +53,75 @@ async function loadEmployeeData() {
       employee.fullName;
     document.getElementById("employeeImage").src =
       "https://i.pravatar.cc/150?u=" + employee.email;
+
+    // ✅ Get adminId from Supabase user metadata
+    const adminId = user.user_metadata.adminId;
+    console.log(adminId);
+    if (adminId) {
+      await loadOrderStats(adminId);
+    } else {
+      console.warn("⚠ No adminId found in user metadata");
+    }
   } catch (err) {
     console.error("Error:", err.message);
+  }
+}
+
+// ✅ Load Import/Export Orders and update cards
+async function loadOrderStats(adminId) {
+  try {
+    const res = await fetch(`/api/items/admin/${adminId}`);
+    if (!res.ok) throw new Error("Failed to fetch items");
+    const items = await res.json();
+    console.log("Items:", items);
+
+    let orderDone = 0;
+    let orderPending = 0;
+
+    items.forEach((item) => {
+      // Imports
+      if (item.imports && item.imports.length) {
+        item.imports.forEach((imp) => {
+          if (
+            imp.status?.toLowerCase() === "received" ||
+            imp.status?.toLowerCase() === "done"
+          ) {
+            orderDone++;
+          } else {
+            orderPending++;
+          }
+        });
+      }
+
+      // Exports
+      if (item.exports && item.exports.length) {
+        item.exports.forEach((exp) => {
+          if (
+            exp.status?.toLowerCase() === "shipped" ||
+            exp.status?.toLowerCase() === "done"
+          ) {
+            orderDone++;
+          } else {
+            orderPending++;
+          }
+        });
+      }
+    });
+
+    // ✅ Calculate total
+    const totalOrders = orderDone + orderPending;
+
+    // ✅ Update UI cards
+    document.querySelector(".status-card.done .card-value").textContent =
+      orderDone;
+    document.querySelector(".status-card.pending .card-value").textContent =
+      orderPending;
+    document.querySelector(".status-card.product .card-value").textContent =
+      items.length;
+    document.querySelector(".status-card.total .card-value").textContent =
+      totalOrders;
+  } catch (err) {
+    console.error("Error loading order stats:", err.message);
   }
 }
 

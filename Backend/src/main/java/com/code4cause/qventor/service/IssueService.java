@@ -52,8 +52,12 @@ public class IssueService {
     }
 
     // ✅ Employee can view their own issues
-    public List<Issue> getIssuesByEmployee(Long employeeId) {
-        return issueRepository.findByEmployeeId(employeeId);
+    public List<Issue> getIssuesByEmployee(String employeeSupabaseId) {
+        Employee employee = employeeRepository.findBySupabaseUserId(employeeSupabaseId).orElseThrow(
+                ()-> new ResourceNotFoundException("Employee not found with this id ")
+        );
+
+        return issueRepository.findByEmployeeId(employee.getId());
     }
 
     // ✅ Admin updates issue status

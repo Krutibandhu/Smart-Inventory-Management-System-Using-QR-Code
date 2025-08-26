@@ -34,7 +34,7 @@
         margin: 10px 0;
         font-size: 1.1em;
       }
-      .back-btn {
+      .back-btn, .pdf-btn {
         margin-top: 20px;
         background: var(--gold);
         color: var(--dark-blue);
@@ -43,8 +43,10 @@
         border-radius: 8px;
         cursor: pointer;
         font-weight: bold;
+        display: inline-block;
+        margin-right: 10px;
       }
-      .back-btn:hover {
+      .back-btn:hover, .pdf-btn:hover {
         background: #b08a57;
       }
     </style>
@@ -52,29 +54,13 @@
   <body>
     <div class="card">
       <h2>📦 Product Details</h2>
-      <div class="details" id="details"></div>
-       <button class="back-btn" onclick="window.location.href='/html/scanner.html'">⬅ Back</button>
+      <div class="details" id="details">Loading...</div>
+      <button class="back-btn" onclick="window.location.href='/html/scanner.html'">⬅ Back</button>
+      <button class="pdf-btn" id="downloadPdfBtn">⬇ Download PDF</button>
     </div>
 
-    <script>
-      const params = new URLSearchParams(window.location.search);
-      const product = {
-        name: params.get("name"),
-        desc: params.get("desc"),
-        qty: params.get("qty"),
-        price: params.get("price"),
-        warehouse: params.get("warehouse"),
-        importDetails: params.get("importDetails"),
-      };
-
-      document.getElementById("details").innerHTML = `
-    <p><b>Name:</b> ${product.name || "-"}</p>
-    <p><b>Description:</b> ${product.desc || "-"}</p>
-    <p><b>Quantity:</b> ${product.qty || "-"}</p>
-    <p><b>Price:</b> ${product.price || "-"}</p>
-    <p><b>Warehouse:</b> ${product.warehouse || "-"}</p>
-    <p><b>Import Details:</b> ${product.importDetails || "-"}</p>
-  `;
-    </script>
+    <!-- ✅ jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="/js/qr-view.js"></script>
   </body>
 </html>
