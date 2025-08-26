@@ -38,7 +38,7 @@ function updateDashboard(admin) {
   const items = admin.items || [];
   document.querySelector(".stat-box.items h2").textContent = items.length;
   document.querySelector(".stat-box.alert h2").textContent = items.filter(
-    (i) => i.quantity < 10
+    (i) => i.quantity <= 10
   ).length;
 }
 
@@ -143,9 +143,7 @@ async function loadAdminData() {
   const supabaseUserId = user.id;
 
   try {
-    const response = await fetch(
-      `/api/admins/${supabaseUserId}`
-    );
+    const response = await fetch(`/api/admins/${supabaseUserId}`);
     if (!response.ok) throw new Error("Failed to fetch admin data");
 
     const admin = await response.json();

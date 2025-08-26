@@ -34,7 +34,6 @@ async function loadOrderHistory() {
 
     renderImports(imports);
     renderExports(exports);
-
   } catch (err) {
     console.error("Error loading order history:", err);
     alert("Failed to load order history.");
@@ -45,9 +44,15 @@ function renderImports(imports) {
   const tbody = document.querySelector("#importTable tbody");
   tbody.innerHTML = "";
 
+  if (!imports.length) {
+    tbody.innerHTML = `<tr><td colspan="7">No Import records found.</td></tr>`;
+    return;
+  }
+
   imports.forEach((imp) => {
     const row = document.createElement("tr");
     row.innerHTML = `
+      <td>${imp.item?.name || "-"}</td> <!-- ✅ Product Name -->
       <td>${imp.date}</td>
       <td>${imp.documentNumber}</td>
       <td>${imp.vendorName}</td>
@@ -63,9 +68,15 @@ function renderExports(exports) {
   const tbody = document.querySelector("#exportTable tbody");
   tbody.innerHTML = "";
 
+  if (!exports.length) {
+    tbody.innerHTML = `<tr><td colspan="7">No Export records found.</td></tr>`;
+    return;
+  }
+
   exports.forEach((exp) => {
     const row = document.createElement("tr");
     row.innerHTML = `
+      <td>${exp.item?.name || "-"}</td> <!-- ✅ Product Name -->
       <td>${exp.date}</td>
       <td>${exp.documentNumber}</td>
       <td>${exp.customerName}</td>

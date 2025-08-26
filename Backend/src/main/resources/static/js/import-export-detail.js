@@ -26,16 +26,12 @@ async function loadImportExportDetails() {
 
   try {
     // Fetch Imports
-    const importRes = await fetch(
-      `/api/admins/${supabaseUserId}/imports`
-    );
+    const importRes = await fetch(`/api/admins/${supabaseUserId}/imports`);
     const imports = importRes.ok ? await importRes.json() : [];
     renderImports(imports);
 
     // Fetch Exports
-    const exportRes = await fetch(
-      `/api/admins/${supabaseUserId}/exports`
-    );
+    const exportRes = await fetch(`/api/admins/${supabaseUserId}/exports`);
     const exports = exportRes.ok ? await exportRes.json() : [];
     renderExports(exports);
   } catch (err) {
@@ -48,7 +44,7 @@ async function loadImportExportDetails() {
 function renderImports(imports) {
   importsTable.innerHTML = "";
   if (imports.length === 0) {
-    importsTable.innerHTML = `<tr><td colspan="8">No Import records found.</td></tr>`;
+    importsTable.innerHTML = `<tr><td colspan="9">No Import records found.</td></tr>`;
     return;
   }
 
@@ -56,6 +52,7 @@ function renderImports(imports) {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${imp.id}</td>
+      <td>${imp.item?.name || "-"}</td> <!-- ✅ Product Name -->
       <td>${imp.date}</td>
       <td>${imp.documentNumber}</td>
       <td>${imp.vendorName || "-"}</td>
@@ -72,7 +69,7 @@ function renderImports(imports) {
 function renderExports(exports) {
   exportsTable.innerHTML = "";
   if (exports.length === 0) {
-    exportsTable.innerHTML = `<tr><td colspan="8">No Export records found.</td></tr>`;
+    exportsTable.innerHTML = `<tr><td colspan="9">No Export records found.</td></tr>`;
     return;
   }
 
@@ -80,6 +77,7 @@ function renderExports(exports) {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${exp.id}</td>
+      <td>${exp.item?.name || "-"}</td> <!-- ✅ Product Name -->
       <td>${exp.date}</td>
       <td>${exp.documentNumber}</td>
       <td>${exp.customerName || "-"}</td>

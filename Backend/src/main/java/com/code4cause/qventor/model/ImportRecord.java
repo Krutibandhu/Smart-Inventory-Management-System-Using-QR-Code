@@ -1,6 +1,7 @@
 package com.code4cause.qventor.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ public class ImportRecord {
     // Many imports belong to one item
     @ManyToOne
     @JoinColumn(name = "item_id", nullable = false)
-    @JsonIgnore
+    @JsonIgnoreProperties({"imports", "exports", "warehouses"})
     private Item item;
 
     public ImportRecord(LocalDate date, String documentNumber, String status, int quantityOrdered, String vendorEntityId, String vendorName, int quantityBilled, int quantityReceived, Item item) {

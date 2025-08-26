@@ -117,6 +117,19 @@
         background-color: #c49b5a;
       }
 
+      .info-login {
+        color: gray;
+      }
+
+      .info-login button {
+        border: none;
+        outline: none;
+        color: green;
+        text-decoration: underline;
+        font-weight: bold;
+        font-size: 17px;
+      }
+
       /* Responsive styles for smaller screens */
       @media (max-width: 768px) {
         /* Stack inputs vertically on smaller screens */
@@ -177,10 +190,10 @@
             required
           />
           <input
-          id="admin-companyname"
-          type="text"
-          placeholder="Company Name"
-          required
+            id="admin-companyname"
+            type="text"
+            placeholder="Company Name"
+            required
           />
         </div>
         <!-- Third row of inputs -->
@@ -204,6 +217,12 @@
         </div>
         <!-- Submit button -->
         <button type="submit" class="submit-btn">SUBMIT</button>
+        <p class="info-login">
+          Already have a account
+          <button onclick="window.location.href='/html/login.html'">
+            Login here
+          </button>
+        </p>
       </form>
     </section>
     <!-- Back arrow: goes back to Home page -->
@@ -219,7 +238,7 @@
     <!-- Forward arrow: goes to Employee page -->
     <button
       class="side-arrow forward"
-      onclick="location.href='/html/employee-login.html'"
+      onclick="window.location.href='/html/employee-login.html'"
       aria-label="Go to Employee page"
     >
       &#8250;

@@ -34,7 +34,7 @@ async function loadItems(adminId) {
 function renderTable(items) {
   table.innerHTML = "";
 
-  const lowStockItems = items.filter((item) => item.quantity < 10);
+  const lowStockItems = items.filter((item) => item.quantity <= 10);
 
   if (lowStockItems.length === 0) {
     table.innerHTML = `<tr><td colspan="5">✅ All items are sufficiently stocked.</td></tr>`;
