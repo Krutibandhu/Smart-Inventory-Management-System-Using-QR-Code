@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const exportData = {
       documentNumber: document.getElementById("documentNumber").value,
+      date: document.getElementById("exportDate").value,
       status: document.getElementById("status").value,
       quantityOrdered: parseInt(
         document.getElementById("quantityOrdered").value
