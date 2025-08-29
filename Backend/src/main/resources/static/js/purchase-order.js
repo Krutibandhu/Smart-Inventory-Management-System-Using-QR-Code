@@ -28,7 +28,6 @@ async function loadPurchaseOrders() {
 
     items.forEach((item, idx) => {
       if (item.quantity <= 10) {
-        //  Use latest import from item.imports
         const imports = item.imports || [];
         const latestImport = imports.length
           ? imports[imports.length - 1]
@@ -67,7 +66,7 @@ async function loadPurchaseOrders() {
       }
     });
 
-    //  Attach Approve button listeners
+    //  Approve button
     document.querySelectorAll(".approve-btn").forEach((btn) => {
       btn.addEventListener("click", async (e) => {
         const poId = e.target.dataset.id;
@@ -78,28 +77,33 @@ async function loadPurchaseOrders() {
         const amount = e.target.dataset.amount;
 
         try {
-          const res = await fetch(`/api/purchase-orders/${poId}/approve?` +
-            new URLSearchParams({
-              adminEmail: user.email,
-              vendorEmail,
-              vendorName,
-              itemName,
-              quantity,
-              amount
-            }), {
-              method: "POST"
-            });
+          const res = await fetch(
+            `/api/purchase-orders/${poId}/approve?` +
+              new URLSearchParams({
+                adminEmail: user.email,
+                vendorEmail,
+                vendorName,
+                itemName,
+                quantity,
+                amount,
+              }),
+            { method: "POST" }
+          );
 
           if (!res.ok) throw new Error("Approval request failed");
 
           const msg = await res.text();
           alert(msg);
 
-          //  Update row status to Approved
-          const statusCell = e.target.closest("tr").querySelector("[data-label='Status']");
+          //  Update row to Approved
+          const row = e.target.closest("tr");
+          const statusCell = row.querySelector("[data-label='Status']");
           statusCell.textContent = "Approved";
           statusCell.className = "status-approved";
 
+          // Remove buttons except View
+          const actionCell = row.querySelector("[data-label='Action']");
+          actionCell.innerHTML = `<button class="view-btn">View</button>`;
         } catch (err) {
           console.error("Error approving PO:", err.message);
           alert(" Failed to approve purchase order.");
@@ -107,6 +111,21 @@ async function loadPurchaseOrders() {
       });
     });
 
+    //  Reject button
+    document.querySelectorAll(".reject-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const row = e.target.closest("tr");
+
+        // Update status
+        const statusCell = row.querySelector("[data-label='Status']");
+        statusCell.textContent = "Rejected";
+        statusCell.className = "status-rejected";
+
+        // // Clear action buttons
+        // const actionCell = row.querySelector("[data-label='Action']");
+        // actionCell.innerHTML = `<button class="view-btn">View</button>`;
+      });
+    });
   } catch (err) {
     console.error("Error loading purchase orders:", err.message);
     poTableBody.innerHTML = `<tr><td colspan="7"> Failed to load purchase orders.</td></tr>`;
