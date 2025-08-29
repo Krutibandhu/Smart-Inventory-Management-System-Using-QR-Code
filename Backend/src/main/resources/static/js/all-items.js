@@ -2,7 +2,7 @@ import { supabase } from "./supabase-client.js";
 
 const tbody = document.getElementById("itemsTable");
 
-// ✅ Get logged-in admin user
+//  Get logged-in admin user
 async function getCurrentUser() {
   const {
     data: { user },
@@ -16,7 +16,7 @@ async function getCurrentUser() {
   return user;
 }
 
-// ✅ Load all items
+//  Load all items
 async function loadItems() {
   const adminUser = await getCurrentUser();
   if (!adminUser) return;
@@ -31,11 +31,11 @@ async function loadItems() {
     renderTable(items);
   } catch (err) {
     console.error("Error loading items:", err.message);
-    alert("❌ Could not load items.");
+    alert(" Could not load items.");
   }
 }
 
-// ✅ Render table rows
+//  Render table rows
 function renderTable(items) {
   tbody.innerHTML = "";
 
@@ -72,7 +72,7 @@ function renderTable(items) {
   });
 }
 
-// ✅ Delete item
+//  Delete item
 async function deleteItem(itemId) {
   if (!confirm("Are you sure you want to delete this item?")) return;
 
@@ -82,11 +82,11 @@ async function deleteItem(itemId) {
     });
     if (!res.ok) throw new Error("Failed to delete item");
 
-    alert("✅ Item deleted successfully!");
+    alert(" Item deleted successfully!");
     loadItems(); // refresh
   } catch (err) {
     console.error("Error deleting item:", err.message);
-    alert("❌ Could not delete item.");
+    alert(" Could not delete item.");
   }
 }
 

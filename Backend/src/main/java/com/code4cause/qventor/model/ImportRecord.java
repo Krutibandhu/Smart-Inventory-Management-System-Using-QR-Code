@@ -21,6 +21,7 @@ public class ImportRecord {
     private int quantityOrdered;
     private String vendorEntityId;
     private String vendorName;
+    private String vendorEmail;
     private int quantityBilled;
     private int quantityReceived;
 

@@ -3,7 +3,7 @@ import { supabase } from "./supabase-client.js";
 document.addEventListener("DOMContentLoaded", async () => {
   const productList = document.getElementById("productList");
 
-  // ✅ Get logged-in user
+  //  Get logged-in user
   const {
     data: { user },
     error,
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    // ✅ Get items by adminId (stored in user metadata)
+    //  Get items by adminId (stored in user metadata)
     const adminId = user.user_metadata?.adminId;
     if (!adminId) throw new Error("No adminId found in user metadata");
 
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       productList.appendChild(card);
     });
 
-    // ✅ Handle Add Import
+    //  Handle Add Import
     document.querySelectorAll(".import-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const itemId = btn.dataset.id;
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
 
-    // ✅ Handle Add Export
+    //  Handle Add Export
     document.querySelectorAll(".export-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         const itemId = e.currentTarget.dataset.id; // <--- FIXED
@@ -69,6 +69,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   } catch (err) {
     console.error(err);
-    productList.innerHTML = `<p>❌ Error loading products.</p>`;
+    productList.innerHTML = `<p> Error loading products.</p>`;
   }
 });

@@ -20,7 +20,7 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    // ✅ Add employee to an admin
+    //  Add employee to an admin
     @PostMapping("/{adminSupabaseUserId}")
     public ResponseEntity<Employee> addEmployeeToAdmin(
             @PathVariable String adminSupabaseUserId,
@@ -29,25 +29,25 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.addEmployeeToAdmin(adminSupabaseUserId, employee));
     }
 
-    // ✅ Get all employees for a specific admin
+    //  Get all employees for a specific admin
     @GetMapping("/admin/{adminSupabaseUserId}")
     public ResponseEntity<List<Employee>> getEmployeesByAdmin(@PathVariable String adminSupabaseUserId) {
         return ResponseEntity.ok(employeeService.getEmployeesByAdmin(adminSupabaseUserId));
     }
 
-    // ✅ Get single employee by database ID
+    //  Get single employee by database ID
     @GetMapping("/id/{employeeId}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable Long employeeId) {
         return ResponseEntity.ok(employeeService.getEmployeeById(employeeId));
     }
 
-    // ✅ Get single employee by Supabase User ID
+    //  Get single employee by Supabase User ID
     @GetMapping("/supabase/{supabaseUserId}")
     public ResponseEntity<Employee> getEmployeeBySupabaseUserId(@PathVariable String supabaseUserId) {
         return ResponseEntity.ok(employeeService.getEmployeeBySupabaseUserId(supabaseUserId));
     }
 
-    // ✅ Update employee by Supabase User ID
+    //  Update employee by Supabase User ID
     @PutMapping("/supabase/{supabaseUserId}")
     public ResponseEntity<Employee> updateEmployee(
             @PathVariable String supabaseUserId,
@@ -56,14 +56,14 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.updateEmployee(supabaseUserId, updatedEmployee));
     }
 
-    // ✅ Delete employee by Supabase User ID
+    //  Delete employee by Supabase User ID
     @DeleteMapping("/supabase/{supabaseUserId}")
     public ResponseEntity<String> deleteEmployee(@PathVariable String supabaseUserId) {
         employeeService.deleteEmployee(supabaseUserId);
         return ResponseEntity.ok("Employee deleted successfully");
     }
 
-    // ✅ Delete employee by normal ID
+    //  Delete employee by normal ID
     @DeleteMapping("/id/{employeeId}")
     public ResponseEntity<String> deleteEmployee(@PathVariable Long employeeId) {
         employeeService.deleteEmployee(employeeId);

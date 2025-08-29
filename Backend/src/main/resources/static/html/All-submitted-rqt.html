@@ -89,8 +89,8 @@
             <td>
               <select id="status-${key}">
                 <option value="Pending" ${requestData.status==="Pending"?"selected":""}>Pending</option>
-                <option value="Approved ✅" ${requestData.status==="Approved ✅"?"selected":""}>Approved ✅</option>
-                <option value="Rejected ❌" ${requestData.status==="Rejected ❌"?"selected":""}>Rejected ❌</option>
+                <option value="Approved" ${requestData.status==="Approved"?"selected":""}>Approved ✅</option>
+                <option value="Rejected" ${requestData.status==="Rejected"?"selected":""}>Rejected </option>
                 <option value="In Progress 🔄" ${requestData.status==="In Progress 🔄"?"selected":""}>In Progress 🔄</option>
               </select>
             </td>
@@ -112,7 +112,7 @@
       let newStatus = document.getElementById("status-" + reqId).value;
       requestData.status = newStatus;
       localStorage.setItem(reqId, JSON.stringify(requestData));
-      alert("✅ Status for Request ID " + reqId + " updated to: " + newStatus);
+      alert("Status for Request ID " + reqId + " updated to: " + newStatus);
     }
   }
 

@@ -3,17 +3,17 @@ import { supabase } from "./supabase-client.js";
 const form = document.getElementById("updateItemForm");
 let itemId;
 
-// ✅ Extract itemId from query params
+//  Extract itemId from query params
 function getItemIdFromURL() {
   const params = new URLSearchParams(window.location.search);
   return params.get("itemId");
 }
 
-// ✅ Load item data
+//  Load item data
 async function loadItem() {
   itemId = getItemIdFromURL();
   if (!itemId) {
-    alert("❌ No item selected for update.");
+    alert(" No item selected for update.");
     window.location.href = "/html/all-items.html";
     return;
   }
@@ -26,11 +26,11 @@ async function loadItem() {
     fillForm(item);
   } catch (err) {
     console.error("Error loading item:", err.message);
-    alert("❌ Could not load item.");
+    alert(" Could not load item.");
   }
 }
 
-// ✅ Pre-fill form
+//  Pre-fill form
 function fillForm(item) {
   document.getElementById("name").value = item.name || "";
   document.getElementById("description").value = item.description || "";
@@ -38,7 +38,7 @@ function fillForm(item) {
   document.getElementById("quantity").value = item.quantity || 0;
 }
 
-// ✅ Submit updated data
+//  Submit updated data
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -58,11 +58,11 @@ form.addEventListener("submit", async (e) => {
 
     if (!res.ok) throw new Error("Failed to update item");
 
-    alert("✅ Item updated successfully!");
+    alert(" Item updated successfully!");
     window.location.href = "/html/all-items.html"; // redirect back
   } catch (err) {
     console.error("Error updating item:", err.message);
-    alert("❌ Could not update item.");
+    alert(" Could not update item.");
   }
 });
 

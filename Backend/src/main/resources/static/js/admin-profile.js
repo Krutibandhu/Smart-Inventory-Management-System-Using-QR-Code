@@ -2,7 +2,7 @@ import { supabase } from "./supabase-client.js";
 
 let currentAdmin;
 
-// ✅ Ensure user stays logged in
+//  Ensure user stays logged in
 supabase.auth.onAuthStateChange((event, session) => {
   if (!session) {
     window.location.href = "/html/login.html"; // Redirect if not logged in
@@ -33,7 +33,7 @@ function updateDashboard(admin) {
   document.getElementById("email").textContent = admin.email;
 }
 
-// ✅ Load Admin data from backend
+//  Load Admin data from backend
 async function loadAdminData() {
   const user = await getCurrentUser();
   if (!user) return;

@@ -3,7 +3,7 @@ import { supabase } from "./supabase-client.js";
 document.addEventListener("DOMContentLoaded", async () => {
   const tbody = document.getElementById("complaintTableBody");
 
-  // ✅ Get current employee
+  //  Get current employee
   const {
     data: { user },
     error,
@@ -42,6 +42,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   } catch (err) {
     console.error(err);
-    tbody.innerHTML = `<tr><td colspan="5">❌ Error loading complaints</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5"> Error loading complaints</td></tr>`;
   }
 });

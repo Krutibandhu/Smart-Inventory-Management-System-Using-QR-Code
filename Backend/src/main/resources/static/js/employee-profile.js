@@ -27,7 +27,7 @@ async function loadEmployeeProfile() {
 
     const employee = await response.json();
 
-    // ✅ Fill profile fields
+    //  Fill profile fields
     document.getElementById("empName").textContent = employee.fullName || "-";
     document.getElementById("empEmail").textContent = employee.email || "-";
     document.getElementById("empPhone").textContent =

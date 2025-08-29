@@ -19,7 +19,7 @@ async function fetchWarehouses(userId) {
     return admin.warehouses || [];
   } catch (err) {
     console.error(err);
-    alert("❌ Error loading warehouses.");
+    alert(" Error loading warehouses.");
     return [];
   }
 }
@@ -34,11 +34,11 @@ async function toggleWarehouseStatus(warehouseId, warehouseName) {
 
     if (!response.ok) throw new Error("Failed to update status");
 
-    alert(`✅ Status updated for ${warehouseName}`);
+    alert(` Status updated for ${warehouseName}`);
     location.reload();
   } catch (err) {
     console.error(err);
-    alert("❌ Error updating warehouse status.");
+    alert(" Error updating warehouse status.");
   }
 }
 
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p><strong>${w.warehouseName}</strong></p>
         <p>📍 ${w.location}</p>
       </div>
-      <div class="warehouse-status">${w.enabled ? "✅ Active" : "❌ Inactive"}</div>
+      <div class="warehouse-status">${w.enabled ? " Active" : " Inactive"}</div>
       <div class="warehouse-actions">
         <button class="toggle-btn">Toggle Status</button>
         <button class="update-btn">✏ Update</button>

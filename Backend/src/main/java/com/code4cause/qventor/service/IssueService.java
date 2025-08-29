@@ -27,7 +27,7 @@ public class IssueService {
         this.adminRepository = adminRepository;
     }
 
-    // ✅ Employee raises a new issue
+    //  Employee raises a new issue
     public Issue createIssue(String employeeSupabaseUserId, Issue issue) {
         Employee employee = employeeRepository.findBySupabaseUserId(employeeSupabaseUserId)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found with SupabaseUserId: " + employeeSupabaseUserId));
@@ -43,7 +43,7 @@ public class IssueService {
     }
 
 
-    // ✅ Admin can view all issues
+    //  Admin can view all issues
     public List<Issue> getIssuesByAdmin(String adminSupabaseId) {
         Admin admin = adminRepository.findBySupabaseUserId(adminSupabaseId).orElseThrow(
                 ()-> new ResourceNotFoundException("Admin not found with thing id"));
@@ -51,7 +51,7 @@ public class IssueService {
         return issueRepository.findByAdminId(admin.getId());
     }
 
-    // ✅ Employee can view their own issues
+    //  Employee can view their own issues
     public List<Issue> getIssuesByEmployee(String employeeSupabaseId) {
         Employee employee = employeeRepository.findBySupabaseUserId(employeeSupabaseId).orElseThrow(
                 ()-> new ResourceNotFoundException("Employee not found with this id ")
@@ -60,7 +60,7 @@ public class IssueService {
         return issueRepository.findByEmployeeId(employee.getId());
     }
 
-    // ✅ Admin updates issue status
+    //  Admin updates issue status
     public Issue updateIssueStatus(Long issueId, String status) {
         Issue issue = issueRepository.findById(issueId)
                 .orElseThrow(() -> new ResourceNotFoundException("Issue not found with ID: " + issueId));

@@ -17,7 +17,7 @@ async function loadOrderHistory() {
     return;
   }
 
-  const adminId = user.user_metadata.adminId; // ✅ Admin Supabase ID from metadata
+  const adminId = user.user_metadata.adminId; //  Admin Supabase ID from metadata
   if (!adminId) {
     alert("No admin ID found for this employee.");
     return;
@@ -52,7 +52,7 @@ function renderImports(imports) {
   imports.forEach((imp) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${imp.item?.name || "-"}</td> <!-- ✅ Product Name -->
+      <td>${imp.item?.name || "-"}</td> <!--  Product Name -->
       <td>${imp.date}</td>
       <td>${imp.documentNumber}</td>
       <td>${imp.vendorName}</td>
@@ -76,7 +76,7 @@ function renderExports(exports) {
   exports.forEach((exp) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${exp.item?.name || "-"}</td> <!-- ✅ Product Name -->
+      <td>${exp.item?.name || "-"}</td> <!--  Product Name -->
       <td>${exp.date}</td>
       <td>${exp.documentNumber}</td>
       <td>${exp.customerName}</td>

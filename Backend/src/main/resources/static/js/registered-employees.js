@@ -2,7 +2,7 @@ import { supabase } from "./supabase-client.js";
 
 const tbody = document.querySelector("#employeeTable tbody");
 
-// ✅ Get logged-in admin
+// Get logged-in admin
 async function getCurrentUser() {
   const {
     data: { user },
@@ -16,7 +16,7 @@ async function getCurrentUser() {
   return user;
 }
 
-// ✅ Load employees from backend
+// Load employees from backend
 async function loadEmployees() {
   const adminUser = await getCurrentUser();
   if (!adminUser) return;
@@ -31,11 +31,11 @@ async function loadEmployees() {
     renderTable(employees);
   } catch (err) {
     console.error("Error loading employees:", err.message);
-    alert("❌ Could not load employees.");
+    alert(" Could not load employees.");
   }
 }
 
-// ✅ Render table rows
+// Render table rows
 function renderTable(employees) {
   tbody.innerHTML = "";
 
@@ -66,7 +66,7 @@ function renderTable(employees) {
   });
 }
 
-// ✅ Delete employee
+// Delete employee
 async function deleteEmployee(employeeSupabaseId) {
   if (!confirm("⚠ Are you sure you want to delete this employee?")) return;
 
@@ -78,11 +78,11 @@ async function deleteEmployee(employeeSupabaseId) {
 
     if (!res.ok) throw new Error("Failed to delete employee");
 
-    alert("✅ Employee deleted successfully");
+    alert("Employee deleted successfully");
     loadEmployees(); // reload table
   } catch (err) {
     console.error("Error deleting employee:", err.message);
-    alert("❌ Could not delete employee.");
+    alert(" Could not delete employee.");
   }
 }
 

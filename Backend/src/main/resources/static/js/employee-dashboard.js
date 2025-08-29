@@ -2,14 +2,14 @@ import { supabase } from "./supabase-client.js";
 
 let currentEmployee;
 
-// ✅ Ensure user stays logged in
+//  Ensure user stays logged in
 supabase.auth.onAuthStateChange((event, session) => {
   if (!session) {
     window.location.href = "/html/employee-login.html";
   }
 });
 
-// ✅ Logout
+//  Logout
 document.getElementById("logoutBtn").addEventListener("click", async () => {
   const { error } = await supabase.auth.signOut();
   if (error) {
@@ -21,7 +21,7 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
   }
 });
 
-// ✅ Fetch current user
+//  Fetch current user
 async function getCurrentUser() {
   const {
     data: { user },
@@ -34,7 +34,7 @@ async function getCurrentUser() {
   return user;
 }
 
-// ✅ Load Employee data
+//  Load Employee data
 async function loadEmployeeData() {
   const user = await getCurrentUser();
   if (!user) return;
@@ -54,7 +54,7 @@ async function loadEmployeeData() {
     document.getElementById("employeeImage").src =
       "https://i.pravatar.cc/150?u=" + employee.email;
 
-    // ✅ Get adminId from Supabase user metadata
+    //  Get adminId from Supabase user metadata
     const adminId = user.user_metadata.adminId;
     console.log(adminId);
     if (adminId) {
@@ -67,7 +67,7 @@ async function loadEmployeeData() {
   }
 }
 
-// ✅ Load Import/Export Orders and update cards
+//  Load Import/Export Orders and update cards
 async function loadOrderStats(adminId) {
   try {
     const res = await fetch(`/api/items/admin/${adminId}`);
@@ -108,10 +108,10 @@ async function loadOrderStats(adminId) {
       }
     });
 
-    // ✅ Calculate total
+    //  Calculate total
     const totalOrders = orderDone + orderPending;
 
-    // ✅ Update UI cards
+    //  Update UI cards
     document.querySelector(".status-card.done .card-value").textContent =
       orderDone;
     document.querySelector(".status-card.pending .card-value").textContent =

@@ -26,43 +26,43 @@ public class AdminController {
         this.warehouseService =warehouseService;
     }
 
-    // ✅ Create new admin
+    //  Create new admin
     @PostMapping
     public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
         return ResponseEntity.ok(adminService.createAdmin(admin));
     }
 
-    // ✅ Get all admins
+    //  Get all admins
     @GetMapping
     public ResponseEntity<List<Admin>> getAllAdmins() {
         return ResponseEntity.ok(adminService.getAllAdmins());
     }
 
-    // ✅ Get single admin by Supabase user ID
+    //  Get single admin by Supabase user ID
     @GetMapping("/{supabaseUserId}")
     public ResponseEntity<Admin> getAdminBySupabaseUserId(@PathVariable String supabaseUserId) {
         return ResponseEntity.ok(adminService.getAdminBySupabaseUserId(supabaseUserId));
     }
 
-    // ✅ Get all imports for an admin
+    //  Get all imports for an admin
     @GetMapping("/{supabaseUserId}/imports")
     public ResponseEntity<List<ImportRecord>> getAllImports(@PathVariable String supabaseUserId) {
         return ResponseEntity.ok(adminService.getAllImportsByAdmin(supabaseUserId));
     }
 
-    // ✅ Get all exports for an admin
+    //  Get all exports for an admin
     @GetMapping("/{supabaseUserId}/exports")
     public ResponseEntity<List<ExportRecord>> getAllExports(@PathVariable String supabaseUserId) {
         return ResponseEntity.ok(adminService.getAllExportsByAdmin(supabaseUserId));
     }
 
-    // ✅ Update admin
+    //  Update admin
     @PutMapping("/{supabaseUserId}")
     public ResponseEntity<Admin> updateAdmin(@PathVariable String supabaseUserId, @RequestBody Admin admin) {
         return ResponseEntity.ok(adminService.updateAdmin(supabaseUserId, admin));
     }
 
-    // ✅ Add New Warehouse to Admin by Supabase User ID
+    //  Add New Warehouse to Admin by Supabase User ID
     @PostMapping("/{supabaseUserId}/warehouses")
     public Admin addWarehouseToAdmin(
             @PathVariable String supabaseUserId,
@@ -71,14 +71,14 @@ public class AdminController {
         return adminService.addWarehouseToAdmin(supabaseUserId, warehouse);
     }
 
-    // ✅ Get single warehouse by ID
+    //  Get single warehouse by ID
     @GetMapping("/warehouse/{warehouseId}")
     public ResponseEntity<Warehouse> getWarehouseById(@PathVariable Long warehouseId) {
         Warehouse warehouse = warehouseService.getWarehouseById(warehouseId);
         return ResponseEntity.ok(warehouse);
     }
 
-    // ✅ update Warehouse info through warehouse id
+    //  update Warehouse info through warehouse id
     @PutMapping("/warehouse/{warehouseId}")
     public Warehouse updateWarehouse(
             @PathVariable Long warehouseId,
@@ -87,13 +87,13 @@ public class AdminController {
         return warehouseService.updateWarehouse(warehouseId,warehouse);
     }
 
-    // ✅ update Warehouse activate or Inactive status through warehouse name
+    //  update Warehouse activate or Inactive status through warehouse name
     @PutMapping("/warehouse/status/{warehouseName}")
     public Warehouse updateActiveInactiveOfWarehouse( @PathVariable String warehouseName){
         return warehouseService.activateOrDeactivateWarehouse(warehouseName);
     }
 
-    // ✅ update Warehouse activate or Inactive status through warehouse id
+    //  update Warehouse activate or Inactive status through warehouse id
     @PutMapping("/warehouse/status/id/{warehouseId}")
     public Warehouse updateActiveInactiveOfWarehouse( @PathVariable Long warehouseId){
         return warehouseService.activateOrDeactivateWarehouse(warehouseId);
@@ -106,7 +106,7 @@ public class AdminController {
     }
 
 
-    // ✅ Delete admin
+    //  Delete admin
     @DeleteMapping("/{supabaseUserId}")
     public ResponseEntity<String> deleteAdmin(@PathVariable String supabaseUserId) {
         adminService.deleteAdmin(supabaseUserId);

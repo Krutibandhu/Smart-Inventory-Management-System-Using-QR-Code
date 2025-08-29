@@ -52,7 +52,6 @@ document
       companyName: document.getElementById("empCompany").value.trim(),
       department: document.getElementById("empDepartment").value.trim(),
       role: document.getElementById("empRole").value.trim(),
-      // ❌ No email, password, supabaseId updates
     };
 
     try {

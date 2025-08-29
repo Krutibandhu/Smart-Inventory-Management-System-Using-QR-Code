@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("adminCompany").value = admin.companyName || "";
   } catch (err) {
     console.error(err.message);
-    alert("❌ Could not load admin details.");
+    alert(" Could not load admin details.");
   }
 });
 
@@ -52,10 +52,10 @@ updateForm.addEventListener("submit", async (e) => {
 
     if (!res.ok) throw new Error("Update failed");
 
-    alert("✅ Profile updated successfully!");
+    alert("Profile updated successfully!");
     window.location.href = "profile.html"; // go back after update
   } catch (err) {
     console.error("Error updating admin:", err.message);
-    alert("❌ Could not update details.");
+    alert("Could not update details.");
   }
 });

@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("warehouseStatus").value = warehouse.enabled ? "true" : "false";
   } catch (err) {
     console.error(err.message);
-    alert("❌ Could not load warehouse details.");
+    alert(" Could not load warehouse details.");
   }
 });
 
@@ -44,10 +44,10 @@ updateForm.addEventListener("submit", async (e) => {
 
     if (!res.ok) throw new Error("Update failed");
 
-    alert("✅ Warehouse updated successfully!");
+    alert(" Warehouse updated successfully!");
     window.location.href = "/html/dashboard.html"; // go back after update
   } catch (err) {
     console.error("Error updating warehouse:", err.message);
-    alert("❌ Could not update warehouse.");
+    alert(" Could not update warehouse.");
   }
 });

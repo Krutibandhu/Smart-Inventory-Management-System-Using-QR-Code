@@ -27,7 +27,7 @@ async function loadWarehouses(adminSupabaseId) {
     });
   } catch (err) {
     console.error(err);
-    alert("❌ Failed to load warehouses.");
+    alert(" Failed to load warehouses.");
   }
 }
 
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // ✅ Build Item + Import JSON
+    //  Build Item + Import JSON
     const itemData = {
       name: document.getElementById("manual-name").value,
       description: document.getElementById("manual-desc").value,
@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         {
           documentNumber: document.getElementById("manual-doc").value,
           vendorName: document.getElementById("manual-vendor").value,
+          vendorEmail: document.getElementById("vendorEmail").value,
           quantityOrdered: parseInt(
             document.getElementById("manual-ordered").value
           ),
@@ -91,9 +92,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!res.ok) throw new Error("Failed to save item with imports");
       const savedItem = await res.json();
 
-      alert("✅ Item & Import saved successfully!");
+      alert(" Item & Import saved successfully!");
 
-      // ✅ Show QR
+      //  Show QR
       const qrUrl = `${window.location.origin}/html/qr-view.html?itemId=${savedItem.id}`;
       qrDiv.innerHTML = "";
       new QRCode(qrDiv, {
@@ -108,12 +109,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       form.reset();
     } catch (err) {
       console.error(err);
-      alert("❌ Error saving product.");
+      alert(" Error saving product.");
     }
   });
 });
 
-// ✅ QR Download
+//  QR Download
 document.getElementById("downloadQR").addEventListener("click", () => {
   const canvas = qrDiv.querySelector("canvas") || qrDiv.querySelector("img");
   if (!canvas) {

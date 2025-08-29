@@ -3,7 +3,7 @@ import { supabase } from "./supabase-client.js";
 const importsTable = document.getElementById("importsTable");
 const exportsTable = document.getElementById("exportsTable");
 
-// ✅ Get current logged-in Supabase user
+//  Get current logged-in Supabase user
 async function getCurrentUser() {
   const {
     data: { user },
@@ -17,7 +17,7 @@ async function getCurrentUser() {
   return user;
 }
 
-// ✅ Load all imports & exports for admin
+//  Load all imports & exports for admin
 async function loadImportExportDetails() {
   const user = await getCurrentUser();
   if (!user) return;
@@ -36,11 +36,11 @@ async function loadImportExportDetails() {
     renderExports(exports);
   } catch (err) {
     console.error("Error loading import/export:", err.message);
-    alert("❌ Could not load Import/Export records.");
+    alert(" Could not load Import/Export records.");
   }
 }
 
-// ✅ Render Imports
+//  Render Imports
 function renderImports(imports) {
   importsTable.innerHTML = "";
   if (imports.length === 0) {
@@ -52,7 +52,7 @@ function renderImports(imports) {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${imp.id}</td>
-      <td>${imp.item?.name || "-"}</td> <!-- ✅ Product Name -->
+      <td>${imp.item?.name || "-"}</td> <!--  Product Name -->
       <td>${imp.date}</td>
       <td>${imp.documentNumber}</td>
       <td>${imp.vendorName || "-"}</td>
@@ -65,7 +65,7 @@ function renderImports(imports) {
   });
 }
 
-// ✅ Render Exports
+//  Render Exports
 function renderExports(exports) {
   exportsTable.innerHTML = "";
   if (exports.length === 0) {
@@ -77,7 +77,7 @@ function renderExports(exports) {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${exp.id}</td>
-      <td>${exp.item?.name || "-"}</td> <!-- ✅ Product Name -->
+      <td>${exp.item?.name || "-"}</td> <!--  Product Name -->
       <td>${exp.date}</td>
       <td>${exp.documentNumber}</td>
       <td>${exp.customerName || "-"}</td>

@@ -26,7 +26,7 @@ public class ItemController {
         this.warehouseService = warehouseService;
     }
 
-    // ✅ Add item to admin by supabaseUserId
+    //  Add item to admin by supabaseUserId
     @PostMapping("/save/{supabaseUserId}")
     public ResponseEntity<Item> addItemToAdmin(
             @PathVariable String supabaseUserId,
@@ -36,46 +36,46 @@ public class ItemController {
         return ResponseEntity.ok(savedItem);
     }
 
-    // ✅ Search endpoint
+    //  Search endpoint
     @GetMapping("/search")
     public ResponseEntity<List<Item>> searchItems(@RequestParam("q") String query) {
         List<Item> items = itemService.searchItems(query);
         return ResponseEntity.ok(items);
     }
 
-    // ✅ Get all items of a specific admin
+    //  Get all items of a specific admin
     @GetMapping("/admin/{supabaseUserId}")
     public ResponseEntity<List<Item>> getItemsByAdmin(@PathVariable String supabaseUserId) {
         return ResponseEntity.ok(itemService.getItemsByAdmin(supabaseUserId));
     }
 
-    // ✅ Get all items of a specific admin
+    //  Get all items of a specific admin
     @GetMapping("/warehouse/{warehouseId}")
     public ResponseEntity<Set<Item>> getItemsByWarehouse(@PathVariable Long warehouseId){
         return ResponseEntity.ok(warehouseService.getItemsFromWarehouse(warehouseId));
     }
 
 
-    // ✅ Get single item by ID
+    //  Get single item by ID
     @GetMapping("/{itemId}")
     public ResponseEntity<Item> getItemById(@PathVariable Long itemId) {
         return ResponseEntity.ok(itemService.getItemById(itemId));
     }
 
-    // ✅ Update item
+    //  Update item
     @PutMapping("/{itemId}")
     public ResponseEntity<Item> updateItem(@PathVariable Long itemId, @RequestBody Item item) {
         return ResponseEntity.ok(itemService.updateItem(itemId, item));
     }
 
-    // ✅ Delete item
+    //  Delete item
     @DeleteMapping("/{itemId}")
     public ResponseEntity<String> deleteItem(@PathVariable Long itemId) {
         itemService.deleteItem(itemId);
         return ResponseEntity.ok("Item deleted successfully");
     }
 
-    // ✅ Create: add a new ImportRecord to an existing item
+    //  Create: add a new ImportRecord to an existing item
     @PostMapping("/{itemId}/imports")
     public ResponseEntity<ImportRecord> addImportToItem(
             @PathVariable Long itemId,
@@ -84,7 +84,7 @@ public class ItemController {
         return ResponseEntity.ok(itemService.addImportToItem(itemId, importRecord));
     }
 
-    // ✅ Create: add a new ExportRecord to an existing item
+    //  Create: add a new ExportRecord to an existing item
     @PostMapping("/{itemId}/exports")
     public ResponseEntity<ExportRecord> addExportToItem(
             @PathVariable Long itemId,
@@ -93,13 +93,13 @@ public class ItemController {
         return ResponseEntity.ok(itemService.addExportToItem(itemId, exportRecord));
     }
 
-    // ✅ Get all import records for an item
+    //  Get all import records for an item
     @GetMapping("/{itemId}/imports")
     public ResponseEntity<List<ImportRecord>> getImportRecords(@PathVariable Long itemId) {
         return ResponseEntity.ok(itemService.getImportRecordsByItem(itemId));
     }
 
-    // ✅ Get single import record
+    //  Get single import record
     @GetMapping("/{itemId}/imports/{importId}")
     public ResponseEntity<ImportRecord> getSingleImport(
             @PathVariable Long itemId,
@@ -108,13 +108,13 @@ public class ItemController {
         return ResponseEntity.ok(itemService.getSingleImportRecord(itemId, importId));
     }
 
-    // ✅ Get all export records for an item
+    //  Get all export records for an item
     @GetMapping("/{itemId}/exports")
     public ResponseEntity<List<ExportRecord>> getExportRecords(@PathVariable Long itemId) {
         return ResponseEntity.ok(itemService.getExportRecordsByItem(itemId));
     }
 
-    // ✅ Get single export record
+    //  Get single export record
     @GetMapping("/{itemId}/exports/{exportId}")
     public ResponseEntity<ExportRecord> getSingleExport(
             @PathVariable Long itemId,

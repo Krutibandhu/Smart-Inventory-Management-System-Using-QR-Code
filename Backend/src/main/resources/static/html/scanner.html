@@ -174,14 +174,14 @@
         function redirectToView(qrMessage) {
           try {
             if (qrMessage.includes("/qr-view.html")) {
-              // ✅ Always send user to QR view
+              // Always send user to QR view
               window.location.href = qrMessage;
             } else {
               alert("⚠ Invalid QR code format!");
             }
           } catch (err) {
             console.error("QR parse error:", err);
-            alert("❌ Failed to read QR code.");
+            alert(" Failed to read QR code.");
           }
         }
 
@@ -221,7 +221,7 @@
               if (code) {
                 redirectToView(code.data);
               } else {
-                alert("❌ No QR code detected.");
+                alert(" No QR code detected.");
               }
             };
             img.src = ev.target.result;

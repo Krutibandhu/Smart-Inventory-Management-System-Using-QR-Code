@@ -24,7 +24,7 @@
 //     const whhouseValue = whhouse.value;
 //     const roleValue = role.value;
 
-//       // ✅ Check values in console
+//       // Check values in console
 //     console.log("Fullname:", fullnameValue);
 //     console.log("Email:", emailValue);
 //     console.log("Phone:", phoneValue);

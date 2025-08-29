@@ -41,7 +41,7 @@ public class Admin {
         this.employees = employees;
     }
 
-    // ✅ Automatically calculated warehouse amount
+    //  Automatically calculated warehouse amount
     @Transient // Not stored in DB
     public int getWarehouseAmount() {
         return (warehouses != null) ? warehouses.size() : 0;

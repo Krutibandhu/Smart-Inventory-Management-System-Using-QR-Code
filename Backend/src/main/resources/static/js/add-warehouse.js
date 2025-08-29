@@ -50,14 +50,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
 
       const result = await response.json();
-      alert("✅ Warehouse added successfully!");
+      alert(" Warehouse added successfully!");
 
       // redirect back to dashboard
       window.location.href = "/html/dashboard.html";
 
     } catch (err) {
       console.error(err);
-      alert("❌ Error: " + err.message);
+      alert(" Error: " + err.message);
     }
   });
 });

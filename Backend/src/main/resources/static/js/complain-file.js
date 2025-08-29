@@ -5,7 +5,7 @@ const form = document.getElementById("complaintForm");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // ✅ get current logged-in employee
+  //  get current logged-in employee
   const {
     data: { user },
     error,
@@ -37,7 +37,7 @@ form.addEventListener("submit", async (e) => {
     form.reset();
   } catch (err) {
     console.error(err);
-    alert("❌ Error submitting complaint");
+    alert(" Error submitting complaint");
   }
 });
 

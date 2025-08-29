@@ -266,7 +266,7 @@
       <thead>
         <tr>
           <th>PO ID</th>
-          <th>Item</th> <!-- ✅ Added Item Name -->
+          <th>Item</th>
           <th>Supplier</th>
           <th>Items (Qty)</th>
           <th>Amount</th>
@@ -275,7 +275,6 @@
         </tr>
       </thead>
       <tbody id="poTableBody">
-        <!-- ✅ Dynamic rows will be injected by JS -->
       </tbody>
     </table>
   </div>
@@ -287,7 +286,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script type="module" src="/js/config.js"></script>
   <script type="module" src="/js/supabase-client.js"></script>
-  <script type="module" src="/js/purchase-order.js"></script> <!-- ✅ Added -->
+  <script type="module" src="/js/purchase-order.js"></script> <!-- Added -->
   <script>
     // Navbar animation
     gsap.from(".navbar", {

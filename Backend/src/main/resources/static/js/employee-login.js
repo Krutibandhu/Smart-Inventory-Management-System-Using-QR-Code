@@ -43,6 +43,6 @@ loginForm.addEventListener("submit", async (e) => {
 
   } catch (err) {
     console.error("Login error:", err.message);
-    alert("❌ " + err.message);
+    alert(" " + err.message);
   }
 });

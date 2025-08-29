@@ -19,10 +19,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     detailsDiv.innerHTML = renderItemDetails(item);
   } catch (error) {
     console.error(error);
-    detailsDiv.innerHTML = "<p>❌ Error loading product details.</p>";
+    detailsDiv.innerHTML = "<p> Error loading product details.</p>";
   }
 
-  // ✅ Styled PDF Download
+  //  Styled PDF Download
   document.getElementById("downloadPdfBtn").addEventListener("click", () => {
     if (!currentItem) return alert("No item loaded!");
 

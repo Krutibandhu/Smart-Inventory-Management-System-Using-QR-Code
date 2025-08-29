@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ),
       vendorEntityId: document.getElementById("vendorEntityId").value,
       vendorName: document.getElementById("vendorName").value,
+      vendorEmail: document.getElementById("vendorEmail").value,
       quantityBilled: parseInt(document.getElementById("quantityBilled").value),
       quantityReceived: parseInt(
         document.getElementById("quantityReceived").value
@@ -30,11 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!res.ok) throw new Error("Failed to add import record");
 
-      alert("✅ Import record added successfully!");
+      alert(" Import record added successfully!");
       window.location.href = "/html/product-details.html";
     } catch (err) {
       console.error("Error:", err.message);
-      alert("❌ Failed to add import record");
+      alert(" Failed to add import record");
     }
   });
 });

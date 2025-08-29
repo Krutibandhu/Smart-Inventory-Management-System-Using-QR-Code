@@ -2,7 +2,7 @@ import { supabase } from "./supabase-client.js";
 
 const table = document.getElementById("complaintsTable");
 
-// ✅ Get logged-in admin
+//  Get logged-in admin
 async function getCurrentUser() {
   const {
     data: { user },
@@ -16,7 +16,7 @@ async function getCurrentUser() {
   return user;
 }
 
-// ✅ Fetch issues for this admin
+//  Fetch issues for this admin
 async function loadIssues(adminId) {
   try {
     const res = await fetch(
@@ -28,11 +28,11 @@ async function loadIssues(adminId) {
     renderTable(issues);
   } catch (err) {
     console.error("Error loading issues:", err.message);
-    alert("❌ Could not load issues.");
+    alert(" Could not load issues.");
   }
 }
 
-// ✅ Render table
+//  Render table
 function renderTable(issues) {
   table.innerHTML = "";
   if (issues.length === 0) {
@@ -80,7 +80,7 @@ function renderTable(issues) {
   });
 }
 
-// ✅ Update issue status
+//  Update issue status
 async function updateIssueStatus(issueId, status) {
   try {
     const res = await fetch(
@@ -91,16 +91,16 @@ async function updateIssueStatus(issueId, status) {
     );
 
     if (!res.ok) throw new Error("Failed to update issue");
-    alert("✅ Issue status updated successfully");
+    alert(" Issue status updated successfully");
     const user = await getCurrentUser();
     loadIssues(user.id);
   } catch (err) {
     console.error("Error updating issue:", err.message);
-    alert("❌ Could not update issue status.");
+    alert(" Could not update issue status.");
   }
 }
 
-// ✅ Init
+//  Init
 document.addEventListener("DOMContentLoaded", async () => {
   const user = await getCurrentUser();
   if (user) {

@@ -32,7 +32,7 @@ public class ItemService {
     }
 
     @Transactional
-    // ✅ Add a new item linked to an admin and warehouse(s) using supabaseUserId
+    //  Add a new item linked to an admin and warehouse(s) using supabaseUserId
     public Item addItemToAdmin(String supabaseUserId, Item item) {
         Admin admin = adminRepository.findBySupabaseUserId(supabaseUserId)
                 .orElseThrow(() -> new ResourceNotFoundException("Admin not found with SupabaseUserId: " + supabaseUserId));
@@ -49,7 +49,7 @@ public class ItemService {
             item.getExports().forEach(exportRecord -> exportRecord.setItem(item));
         }
 
-        // ✅ Link warehouses to this item
+        //  Link warehouses to this item
         if (item.getWarehouses() != null && !item.getWarehouses().isEmpty()) {
             Set<Warehouse> attachedWarehouses = new HashSet<>();
 
@@ -70,26 +70,26 @@ public class ItemService {
     }
 
 
-    // ✅ Get all items of a specific admin
+    //  Get all items of a specific admin
     public List<Item> getItemsByAdmin(String supabaseUserId) {
         Admin admin = adminRepository.findBySupabaseUserId(supabaseUserId)
                 .orElseThrow(() -> new ResourceNotFoundException("Admin not found"));
         return admin.getItems();
     }
 
-    // ✅ Get a single item by ID
+    //  Get a single item by ID
     public Item getItemById(Long itemId) {
         return itemRepository.findById(itemId)
                 .orElseThrow(() -> new ResourceNotFoundException("Item not found"));
     }
 
-    // ✅ Search items by name
+    //  Search items by name
     public List<Item> searchItems(String keyword) {
         return itemRepository.findByNameContainingIgnoreCase(keyword);
     }
 
     @Transactional
-    // ✅ Update an item
+    //  Update an item
     public Item updateItem(Long itemId, Item updatedItem) {
         Item existingItem = getItemById(itemId);
         existingItem.setName(updatedItem.getName());
@@ -100,7 +100,7 @@ public class ItemService {
     }
 
     @Transactional
-    // ✅ Delete an item
+    //  Delete an item
     public void deleteItem(Long itemId) {
         if (!itemRepository.existsById(itemId)) {
             throw new ResourceNotFoundException("Item not found");
@@ -108,13 +108,13 @@ public class ItemService {
         itemRepository.deleteById(itemId);
     }
 
-    // ✅ Get all import records for an item
+    //  Get all import records for an item
     public List<ImportRecord> getImportRecordsByItem(Long itemId) {
         getItemById(itemId); // ensure item exists
         return importRecordRepository.findByItemId(itemId);
     }
 
-    // ✅ Get single import record
+    //  Get single import record
     public ImportRecord getSingleImportRecord(Long itemId, Long importId) {
         ImportRecord rec = importRecordRepository.findById(importId)
                 .orElseThrow(() -> new ResourceNotFoundException("Import record not found"));
@@ -124,13 +124,13 @@ public class ItemService {
         return rec;
     }
 
-    // ✅ Get all export records for an item
+    //  Get all export records for an item
     public List<ExportRecord> getExportRecordsByItem(Long itemId) {
         getItemById(itemId); // ensure item exists
         return exportRecordRepository.findByItemId(itemId);
     }
 
-    // ✅ Get single export record
+    //  Get single export record
     public ExportRecord getSingleExportRecord(Long itemId, Long exportId) {
         ExportRecord rec = exportRecordRepository.findById(exportId)
                 .orElseThrow(() -> new ResourceNotFoundException("Export record not found"));
@@ -141,7 +141,7 @@ public class ItemService {
     }
 
     @Transactional
-    // ✅ CREATE: Add a new ImportRecord to an existing item
+    //  CREATE: Add a new ImportRecord to an existing item
     public ImportRecord addImportToItem(Long itemId, ImportRecord newImport) {
         Item item = getItemById(itemId);
         newImport.setItem(item);
@@ -155,7 +155,7 @@ public class ItemService {
     }
 
     @Transactional
-    // ✅ CREATE: Add a new ExportRecord to an existing item
+    //  CREATE: Add a new ExportRecord to an existing item
     public ExportRecord addExportToItem(Long itemId, ExportRecord newExport) {
         Item item = getItemById(itemId);
         newExport.setItem(item);

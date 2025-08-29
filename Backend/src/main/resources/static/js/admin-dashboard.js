@@ -2,7 +2,7 @@ import { supabase } from "./supabase-client.js";
 
 let currentAdmin;
 
-// ✅ Ensure user stays logged in
+//  Ensure user stays logged in
 supabase.auth.onAuthStateChange((event, session) => {
   if (!session) {
     window.location.href = "/html/login.html";
@@ -21,7 +21,7 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
   }
 });
 
-// ✅ Update dashboard UI
+//  Update dashboard UI
 function updateDashboard(admin) {
   document.getElementById("adminDisplayName").textContent = admin.fullName;
   document.getElementById("adminImage").src =
@@ -42,7 +42,7 @@ function updateDashboard(admin) {
   ).length;
 }
 
-// ✅ Fetch imports & exports and render combined chart
+//  Fetch imports & exports and render combined chart
 async function loadCharts(supabaseUserId) {
   try {
     const [importsRes, exportsRes] = await Promise.all([
@@ -59,7 +59,7 @@ async function loadCharts(supabaseUserId) {
   }
 }
 
-// ✅ Render combined chart for imports & exports
+//  Render combined chart for imports & exports
 function renderCombinedChart(imports, exports) {
   const ctx = document.getElementById("importExportChart").getContext("2d");
 
@@ -118,7 +118,7 @@ function renderCombinedChart(imports, exports) {
   });
 }
 
-// ✅ Get current logged-in user
+//  Get current logged-in user
 async function getCurrentUser() {
   const {
     data: { user },
@@ -135,7 +135,7 @@ async function getCurrentUser() {
   return user;
 }
 
-// ✅ Load Admin data
+//  Load Admin data
 async function loadAdminData() {
   const user = await getCurrentUser();
   if (!user) return;

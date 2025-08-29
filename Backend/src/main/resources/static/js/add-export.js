@@ -30,11 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!res.ok) throw new Error("Failed to add export record");
 
-      alert("✅ Export record added successfully!");
+      alert(" Export record added successfully!");
       window.location.href = "/html/product-details.html";
     } catch (err) {
       console.error("Error:", err.message);
-      alert("❌ Failed to add export record");
+      alert(" Failed to add export record");
     }
   });
 });

@@ -34,7 +34,8 @@
         margin: 10px 0;
         font-size: 1.1em;
       }
-      .back-btn, .pdf-btn {
+      .back-btn,
+      .pdf-btn {
         margin-top: 20px;
         background: var(--gold);
         color: var(--dark-blue);
@@ -46,7 +47,8 @@
         display: inline-block;
         margin-right: 10px;
       }
-      .back-btn:hover, .pdf-btn:hover {
+      .back-btn:hover,
+      .pdf-btn:hover {
         background: #b08a57;
       }
     </style>
@@ -55,11 +57,16 @@
     <div class="card">
       <h2>📦 Product Details</h2>
       <div class="details" id="details">Loading...</div>
-      <button class="back-btn" onclick="window.location.href='/html/scanner.html'">⬅ Back</button>
+      <button
+        class="back-btn"
+        onclick="window.location.href='/html/scanner.html'"
+      >
+        ⬅ Back
+      </button>
       <button class="pdf-btn" id="downloadPdfBtn">⬇ Download PDF</button>
     </div>
 
-    <!-- ✅ jsPDF -->
+    <!-- jsPDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="/js/qr-view.js"></script>
   </body>

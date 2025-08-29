@@ -26,7 +26,7 @@ async function loadItems(adminId) {
     renderTable(items);
   } catch (err) {
     console.error("Error loading items:", err.message);
-    alert("❌ Could not load items.");
+    alert(" Could not load items.");
   }
 }
 
@@ -37,7 +37,7 @@ function renderTable(items) {
   const lowStockItems = items.filter((item) => item.quantity <= 10);
 
   if (lowStockItems.length === 0) {
-    table.innerHTML = `<tr><td colspan="5">✅ All items are sufficiently stocked.</td></tr>`;
+    table.innerHTML = `<tr><td colspan="5">All items are sufficiently stocked.</td></tr>`;
     return;
   }
 

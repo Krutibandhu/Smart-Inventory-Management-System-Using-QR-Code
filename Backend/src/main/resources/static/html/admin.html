@@ -21,6 +21,7 @@
         color: var(--white); /* Text color */
         font-family: "Open Sans", sans-serif; /* Font */
       }
+
       /* Navbar hover underline animation */
       .nav-links a {
         position: relative;
@@ -117,17 +118,31 @@
         background-color: #c49b5a;
       }
 
+      /* Info section below form */
       .info-login {
+        text-align: center;
+        margin-top: 1.5rem;
         color: gray;
+        font-size: 1rem;
       }
 
-      .info-login button {
+      /* Login button styled similar to submit */
+      .login-btn {
+        display: inline-block;
+        margin-top: 0.8rem;
+        background-color: var(--gold);
+        color: var(--dark-blue);
         border: none;
-        outline: none;
-        color: green;
-        text-decoration: underline;
-        font-weight: bold;
-        font-size: 17px;
+        padding: 0.7rem 2rem;
+        font-weight: 700;
+        font-size: 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .login-btn:hover {
+        background-color: #c49b5a;
       }
 
       /* Responsive styles for smaller screens */
@@ -157,7 +172,6 @@
         <a href="/html/contact-us.html">Contact Us</a>
       </nav>
       <div class="menu-icon">&#9776;</div>
-      <!-- Hamburger menu icon -->
     </header>
 
     <!-- Registration Form Section -->
@@ -175,6 +189,7 @@
           <input id="admin-email" type="email" placeholder="Gmail" required />
           <input id="admin-phone" type="tel" placeholder="Phone No." required />
         </div>
+
         <!-- Second row of inputs -->
         <div class="form-row">
           <input
@@ -196,6 +211,7 @@
             required
           />
         </div>
+
         <!-- Third row of inputs -->
         <div class="form-row">
           <input
@@ -215,36 +231,42 @@
             <option value="Admin"></option>
           </datalist>
         </div>
+
         <!-- Submit button -->
         <button type="submit" class="submit-btn">SUBMIT</button>
-        <p class="info-login">
-          Already have a account
-          <button onclick="window.location.href='/html/login.html'">
+
+        <!-- Login button -->
+        <div class="info-login">
+          <p>Already have an account?</p>
+          <button
+            type="button"
+            class="login-btn"
+            onclick="window.location.href='/html/login.html'"
+          >
             Login here
           </button>
-        </p>
+        </div>
       </form>
     </section>
-    <!-- Back arrow: goes back to Home page -->
+
+    <!-- Back arrow -->
     <button
       class="side-arrow back"
       onclick="location.href='/html/index.html'"
       aria-label="Go back to Home page"
     >
       &#8249;
-      <!-- Unicode left-pointing arrow ‹ -->
     </button>
 
-    <!-- Forward arrow: goes to Employee page -->
+    <!-- Forward arrow -->
     <button
       class="side-arrow forward"
       onclick="window.location.href='/html/employee-login.html'"
       aria-label="Go to Employee page"
     >
       &#8250;
-      <!-- Unicode right-pointing arrow › -->
     </button>
-    <script></script>
+
     <script src="/js/script.js"></script>
     <script type="module" src="/js/admin-registration.js"></script>
     <script type="module" src="/js/config.js"></script>
