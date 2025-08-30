@@ -89,7 +89,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         body: JSON.stringify(itemData),
       });
 
-      if (!res.ok) throw new Error("Failed to save item with imports");
+      if (!res.ok) {
+        let errorMsg = "Failed to save item with imports";
+        try {
+          const errorData = await res.json();
+          errorMsg = errorData.message || errorMsg;
+        } catch {}
+        alert(`Error: ${errorMsg}`);
+        throw new Error(errorMsg);
+      }
       const savedItem = await res.json();
 
       alert(" Item & Import saved successfully!");

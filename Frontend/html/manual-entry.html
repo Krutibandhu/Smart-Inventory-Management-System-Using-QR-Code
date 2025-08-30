@@ -367,8 +367,6 @@
 
       renderTable();
     });
-
-    // ✅ Fix: Now works
     document.getElementById('downloadQR').addEventListener('click', () => {
       const canvas = qrDiv.querySelector('canvas') || qrDiv.querySelector('img');
       if (!canvas) {

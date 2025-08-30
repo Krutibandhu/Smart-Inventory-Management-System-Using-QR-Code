@@ -14,17 +14,10 @@ public class PurchaseOrderController {
     @PostMapping("/{id}/approve")
     public String approvePurchaseOrder(
             @PathVariable Long id,
-            @RequestParam String adminEmail,
-            @RequestParam String vendorEmail,
-            @RequestParam String vendorName,
-            @RequestParam String itemName,
-            @RequestParam int quantity,
-            @RequestParam double amount
+            @RequestParam Long itemId
     ) {
         // ⚡️ Fire email service
-        emailService.sendPurchaseOrderEmail(
-                adminEmail, vendorEmail, vendorName, itemName, quantity, amount
-        );
+        emailService.sendPurchaseOrderEmail(itemId);
 
         return " Purchase Order Approved & Email Sent!";
     }

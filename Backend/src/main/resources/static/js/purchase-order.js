@@ -53,11 +53,7 @@ async function loadPurchaseOrders() {
             <button class="view-btn">View</button>
             <button class="approve-btn"
               data-id="${idx + 1001}"
-              data-vendorname="${vendorName}"
-              data-vendoremail="${vendorEmail}"
-              data-itemname="${item.name}"
-              data-quantity="${reorderQty}"
-              data-amount="${amount}"
+              data-itemid="${item.id}"
             >Approve</button>
             <button class="reject-btn">Reject</button>
           </td>
@@ -70,22 +66,13 @@ async function loadPurchaseOrders() {
     document.querySelectorAll(".approve-btn").forEach((btn) => {
       btn.addEventListener("click", async (e) => {
         const poId = e.target.dataset.id;
-        const vendorName = e.target.dataset.vendorname;
-        const vendorEmail = e.target.dataset.vendoremail;
-        const itemName = e.target.dataset.itemname;
-        const quantity = e.target.dataset.quantity;
-        const amount = e.target.dataset.amount;
+        const itemId = e.target.dataset.itemid;
 
         try {
           const res = await fetch(
             `/api/purchase-orders/${poId}/approve?` +
               new URLSearchParams({
-                adminEmail: user.email,
-                vendorEmail,
-                vendorName,
-                itemName,
-                quantity,
-                amount,
+                  itemId
               }),
             { method: "POST" }
           );
