@@ -5,7 +5,7 @@ const poTableBody = document.getElementById("poTableBody");
 async function getCurrentUser() {
   const { data, error } = await supabase.auth.getUser();
   if (error || !data.user) {
-    alert("⚠ Please log in as Admin first.");
+    alert("Please log in as Admin first.");
     window.location.href = "/html/login.html";
     return null;
   }
