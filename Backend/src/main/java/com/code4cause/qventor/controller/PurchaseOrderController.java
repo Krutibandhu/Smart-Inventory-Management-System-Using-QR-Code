@@ -2,6 +2,7 @@ package com.code4cause.qventor.controller;
 
 import com.code4cause.qventor.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,5 +21,10 @@ public class PurchaseOrderController {
         emailService.sendPurchaseOrderEmail(itemId);
 
         return " Purchase Order Approved & Email Sent!";
+    }
+
+    @GetMapping("/view")
+    public ResponseEntity<String> viewEmail(@RequestParam Long itemId){
+        return ResponseEntity.ok(emailService.getEmailDraftUrl(itemId));
     }
 }

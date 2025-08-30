@@ -50,7 +50,7 @@ async function loadPurchaseOrders() {
           <td data-label="Amount">₹${amount}</td>
           <td data-label="Status" class="status-pending">Pending</td>
           <td data-label="Action" class="actions">
-            <button class="view-btn">View</button>
+            <button class="view-btn" data-itemid = ${item.id}>View</button>
             <button class="approve-btn"
               data-id="${idx + 1001}"
               data-itemid="${item.id}"
@@ -72,7 +72,7 @@ async function loadPurchaseOrders() {
           const res = await fetch(
             `/api/purchase-orders/${poId}/approve?` +
               new URLSearchParams({
-                  itemId
+                itemId,
               }),
             { method: "POST" }
           );
@@ -111,6 +111,32 @@ async function loadPurchaseOrders() {
         // // Clear action buttons
         // const actionCell = row.querySelector("[data-label='Action']");
         // actionCell.innerHTML = `<button class="view-btn">View</button>`;
+      });
+    });
+
+    //View Button
+    document.querySelectorAll(".view-btn").forEach((btn) => {
+      btn.addEventListener("click", async (e) => {
+        const itemId = e.target.dataset.itemid;
+
+        try {
+          const res = await fetch(
+            `/api/purchase-orders/view?` +
+              new URLSearchParams({
+                itemId,
+              }),
+            { method: "GET" }
+          );
+
+          if (!res.ok) throw new Error("Approval request failed");
+
+          const gmailUrl = await res.text();
+
+          window.open(gmailUrl, "_blank");
+        } catch (error) {
+          console.error("Error Viewing PO:", err.message);
+          alert(" Failed to view purchase order.");
+        }
       });
     });
   } catch (err) {
